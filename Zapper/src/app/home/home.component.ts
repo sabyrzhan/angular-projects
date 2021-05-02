@@ -1,15 +1,41 @@
-import {AfterViewInit, Component, Inject} from '@angular/core';
+import {AfterViewInit, Component, Inject, OnInit} from '@angular/core';
 import Swiper from 'swiper';
 import SwiperCore, { Navigation, Pagination } from 'swiper/core';
 import {JQ_TOKEN} from '../common/jquery.service';
+import {ITestimonial} from './testimonial/testimonial.model';
+import {TestimonialService} from './testimonial/testimonial.service';
+import {FaqsService} from './faqs/faqs.service';
+import {IFaq} from './faqs/faq.model';
 
 SwiperCore.use([Navigation, Pagination]);
 
 @Component({
   templateUrl: 'home.component.html'
 })
-export class HomeComponent implements AfterViewInit {
-  constructor(@Inject(JQ_TOKEN) private $: any) {
+export class HomeComponent implements AfterViewInit, OnInit {
+  testimonials: ITestimonial[] = [];
+  faqs: IFaq[] = [];
+
+  constructor(@Inject(JQ_TOKEN) private $: any,
+              private testimonialService: TestimonialService,
+              private faqService: FaqsService) {
+  }
+
+  ngOnInit(): void {
+    this.fetchTestimonials();
+    this.fetchFaqs();
+  }
+
+  private fetchTestimonials(): void {
+    this.testimonialService.fetchTestimonials().subscribe(items => {
+      this.testimonials = items;
+    });
+  }
+
+  private fetchFaqs(): void {
+    this.faqService.fetchFaqs().subscribe(faqs => {
+      this.faqs = faqs;
+    });
   }
 
   ngAfterViewInit(): void {
@@ -56,33 +82,6 @@ export class HomeComponent implements AfterViewInit {
           slidesPerView: 4.75,
         }
       }
-    });
-
-    this.bindTestimonialMouseOver();
-    this.bindAccordionEvents();
-  }
-
-  private bindTestimonialMouseOver(): void {
-    this.$('.testimonial__wrapper').on('mouseover click', (e: any) => {
-      if (this.$(e.target).is('img')) {
-        const parentElement = this.$(e.target).parent().parent();
-        parentElement.addClass('active');
-        if (parentElement.siblings().hasClass('active')) {
-          parentElement.siblings().removeClass('active');
-        }
-      }
-    });
-  }
-
-  private bindAccordionEvents(): void {
-    this.$('.card').on('hide.bs.collapse', (e: any) => {
-      const parentId = this.$(e.target).parent().attr('id');
-      this.$(`#${parentId} > .card-header > h5`).addClass('hidden');
-    });
-
-    this.$('.card').on('show.bs.collapse', (e: any) => {
-      const parentId = this.$(e.target).parent().attr('id');
-      this.$(`#${parentId} > .card-header > h5`).removeClass('hidden');
     });
   }
 }
