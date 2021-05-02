@@ -1,6 +1,7 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, Inject} from '@angular/core';
 import Swiper from 'swiper';
 import SwiperCore, { Navigation } from 'swiper/core';
+import {JQ_TOKEN} from '../common/jquery.service';
 
 SwiperCore.use([Navigation]);
 
@@ -8,6 +9,9 @@ SwiperCore.use([Navigation]);
   templateUrl: './blog-details.component.html'
 })
 export class BlogDetailsComponent implements AfterViewInit {
+  constructor(@Inject(JQ_TOKEN) private $: any) {
+  }
+
   ngAfterViewInit(): void {
     const relatedPost = new Swiper('.blog_related-slider', {
       loop: true,
@@ -25,6 +29,18 @@ export class BlogDetailsComponent implements AfterViewInit {
           slidesPerView: 2
         }
       }
+    });
+
+    this.initMasonryLayout();
+  }
+
+  private initMasonryLayout(): void {
+    this.$(window).on('load', () => {
+      this.$('body').addClass('loaded');
+      this.$('.grid').masonry({
+        itemSelector: '.grid-item',
+        gutter: 30
+      });
     });
   }
 }
