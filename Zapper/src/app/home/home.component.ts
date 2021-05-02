@@ -1,6 +1,7 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, Inject} from '@angular/core';
 import Swiper from 'swiper';
 import SwiperCore, { Navigation, Pagination } from 'swiper/core';
+import {JQ_TOKEN} from '../common/jquery.service';
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -8,6 +9,9 @@ SwiperCore.use([Navigation, Pagination]);
   templateUrl: 'home.component.html'
 })
 export class HomeComponent implements AfterViewInit {
+  constructor(@Inject(JQ_TOKEN) private $: any) {
+  }
+
   ngAfterViewInit(): void {
     const clients = new Swiper('.clients-slider', {
       loop: true,
@@ -52,6 +56,33 @@ export class HomeComponent implements AfterViewInit {
           slidesPerView: 4.75,
         }
       }
+    });
+
+    this.bindTestimonialMouseOver();
+    this.bindAccordionEvents();
+  }
+
+  private bindTestimonialMouseOver(): void {
+    this.$('.testimonial__wrapper').on('mouseover click', (e: any) => {
+      if (this.$(e.target).is('img')) {
+        const parentElement = this.$(e.target).parent().parent();
+        parentElement.addClass('active');
+        if (parentElement.siblings().hasClass('active')) {
+          parentElement.siblings().removeClass('active');
+        }
+      }
+    });
+  }
+
+  private bindAccordionEvents(): void {
+    this.$('.card').on('hide.bs.collapse', (e: any) => {
+      const parentId = this.$(e.target).parent().attr('id');
+      this.$(`#${parentId} > .card-header > h5`).addClass('hidden');
+    });
+
+    this.$('.card').on('show.bs.collapse', (e: any) => {
+      const parentId = this.$(e.target).parent().attr('id');
+      this.$(`#${parentId} > .card-header > h5`).removeClass('hidden');
     });
   }
 }
