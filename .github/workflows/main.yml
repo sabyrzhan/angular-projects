@@ -7,9 +7,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Login to DockerHub Registry
-        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login ghcr.io -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
       - name: Build the tagged Docker image
         run: docker build --file Zapper/zapper-backend/Dockerfile --tag sabyrzhan/angular-projects:zapper-backend-latest .
-      - name: Push the tagged Docker image
-        run: docker push sabyrzhan/angular-projects:zapper-backend-latest .
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1
+        with:
+          push: true
+          context: Zapper/zapper-backend
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: sabyrzhan/angular-projects:zapper-backend-latest
+          tag_with_ref: false
