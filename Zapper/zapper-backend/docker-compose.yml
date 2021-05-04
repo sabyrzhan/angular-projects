@@ -1,0 +1,5 @@
+version: "3"
+services:
+  zapper-backend:
+    image: zapper-backend
+    build: .
