@@ -1,7 +1,10 @@
 import {AfterViewInit, Component, Inject} from '@angular/core';
 import Swiper from 'swiper';
-import SwiperCore, { Navigation } from 'swiper/core';
+import SwiperCore, {Navigation} from 'swiper/core';
 import {JQ_TOKEN} from '../common/jquery.service';
+import {BlogsService} from '../blogs/blogs.service';
+import {ActivatedRoute, Data} from '@angular/router';
+import {IBlog} from '../blogs/blogs.model';
 
 SwiperCore.use([Navigation]);
 
@@ -9,7 +12,11 @@ SwiperCore.use([Navigation]);
   templateUrl: './blog-details.component.html'
 })
 export class BlogDetailsComponent implements AfterViewInit {
-  constructor(@Inject(JQ_TOKEN) private $: any) {
+  blog: IBlog = {} as IBlog;
+
+  constructor(@Inject(JQ_TOKEN) private $: any,
+              private blogService: BlogsService,
+              private route: ActivatedRoute) {
   }
 
   ngAfterViewInit(): void {
@@ -31,15 +38,9 @@ export class BlogDetailsComponent implements AfterViewInit {
       }
     });
 
-    this.initMasonryLayout();
-  }
-
-  private initMasonryLayout(): void {
-    this.$(window).on('load', () => {
-      this.$('body').addClass('loaded');
-      this.$('.grid').masonry({
-        itemSelector: '.grid-item',
-        gutter: 30
+    this.route.params.forEach(param => {
+      this.blogService.fetchBlog(param.id).subscribe(blog => {
+        this.blog = blog;
       });
     });
   }

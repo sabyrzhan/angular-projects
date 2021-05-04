@@ -6,6 +6,8 @@ import {ITestimonial} from './testimonial/testimonial.model';
 import {TestimonialService} from './testimonial/testimonial.service';
 import {FaqsService} from './faqs/faqs.service';
 import {IFaq} from './faqs/faq.model';
+import {BlogsService} from '../blogs/blogs.service';
+import {IBlog} from '../blogs/blogs.model';
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -15,15 +17,18 @@ SwiperCore.use([Navigation, Pagination]);
 export class HomeComponent implements AfterViewInit, OnInit {
   testimonials: ITestimonial[] = [];
   faqs: IFaq[] = [];
+  blogs: IBlog[] = [];
 
   constructor(@Inject(JQ_TOKEN) private $: any,
               private testimonialService: TestimonialService,
-              private faqService: FaqsService) {
+              private faqService: FaqsService,
+              private blogService: BlogsService) {
   }
 
   ngOnInit(): void {
     this.fetchTestimonials();
     this.fetchFaqs();
+    this.fetchBlogs();
   }
 
   private fetchTestimonials(): void {
@@ -35,6 +40,12 @@ export class HomeComponent implements AfterViewInit, OnInit {
   private fetchFaqs(): void {
     this.faqService.fetchFaqs().subscribe(faqs => {
       this.faqs = faqs;
+    });
+  }
+
+  private fetchBlogs(): void {
+    this.blogService.fetchBlogs().subscribe(blogs => {
+      this.blogs = blogs;
     });
   }
 

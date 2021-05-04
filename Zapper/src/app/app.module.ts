@@ -15,6 +15,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {TestimonialService} from './home/testimonial/testimonial.service';
 import {FaqsComponent} from './home/faqs/faqs.component';
 import {FaqsService} from './home/faqs/faqs.service';
+import {BlogsService} from './blogs/blogs.service';
+import {AsisPipe} from './common/asis.pipe';
 
 const gWindow = window as never;
 const jQuery = gWindow['$'];
@@ -28,7 +30,8 @@ const jQuery = gWindow['$'];
     TestimonialComponent,
     FaqsComponent,
     BlogsComponent,
-    BlogDetailsComponent
+    BlogDetailsComponent,
+    AsisPipe
   ],
   imports: [
     BrowserModule,
@@ -39,6 +42,7 @@ const jQuery = gWindow['$'];
   providers: [
     TestimonialService,
     FaqsService,
+    BlogsService,
     {
       provide: JQ_TOKEN,
       useValue: jQuery

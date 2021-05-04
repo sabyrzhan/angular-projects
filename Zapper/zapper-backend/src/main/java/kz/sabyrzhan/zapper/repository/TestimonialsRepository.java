@@ -1,13 +1,10 @@
 package kz.sabyrzhan.zapper.repository;
 
+import kz.sabyrzhan.zapper.Utils;
 import kz.sabyrzhan.zapper.models.Testimonial;
 import lombok.SneakyThrows;
-import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
-
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 
 @Repository
 public class TestimonialsRepository {
@@ -34,11 +31,8 @@ public class TestimonialsRepository {
   @SneakyThrows
   private String readResource(int number) {
     int choose = number % 4 + 1;
-    String result;
     String resourceName = "feedbacks/text" + choose + ".txt";
-    try(InputStream is = getClass().getClassLoader().getResourceAsStream(resourceName)) {
-      result = IOUtils.toString(is, StandardCharsets.UTF_8);
-    }
+    String result = Utils.readResource(resourceName);
 
     return result;
   }

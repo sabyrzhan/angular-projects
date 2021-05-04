@@ -8,8 +8,8 @@
         </div>
         <div>
           <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="blog.html"><i class="fad fa-long-arrow-right"></i>Blog</a></li>
+            <li><a [routerLink]="['/']">Home</a></li>
+            <li><a [routerLink]="['/blogs']"><i class="fad fa-long-arrow-right"></i>Blog</a></li>
           </ul>
           <div class="icon">
             <i class="fad fa-bullhorn"></i>
@@ -73,122 +73,16 @@
     <div class="blog__content">
       <div class="container">
         <div class="row">
-          <div class="col-lg-4">
-            <a href="/blogs/1">
+          <div class="{{blog.cssClass}}" *ngFor="let blog of blogs">
+            <a [routerLink]="['/blogs', blog.blog.id]">
               <div class="blog__single blog__single--1">
                 <div class="blog__single-image">
-                  <img src="assets/images/blog-img-1.png" alt="image">
+                  <img src="{{blog.blog.smallImageUrl}}" alt="image">
                 </div>
                 <div class="blog__single-info">
-                  <h3>New features coming in 2020 to our app.</h3>
-                  <h4>12 <i class="fad fa-comment"></i><span>|</span>Dec 17, 2020</h4>
-                  <p class="paragraph dark">Suisque metus tortor ultricies ac ligula neced
-                    eleifend dales felise morbi nec tempor isvel ultricies lideula. </p>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-8">
-            <a href="/blogs/2">
-              <div class="blog__single blog__single--2">
-                <div class="blog__single-image">
-                  <img src="assets/images/blog-img-2.png" alt="image">
-                </div>
-                <div class="blog__single-info">
-                  <h3>New features coming in 2020 to our app.</h3>
-                  <h4>12 <i class="fad fa-comment"></i><span>|</span>Dec 17, 2020</h4>
-                  <p class="paragraph dark">Suisque metus tortor ultricies ac ligula neced
-                    eleifend dales felise morbi nec tempor isvel ultricies lideula. </p>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-8 left">
-            <a href="/blogs/3">
-              <div class="blog__single blog__single--3">
-                <div class="blog__single-image">
-                  <img src="assets/images/blog-img-3.png" alt="image">
-                </div>
-                <div class="blog__single-info">
-                  <h3>New features coming in 2020 to our app.</h3>
-                  <h4>12 <i class="fad fa-comment"></i><span>|</span>Dec 17, 2020</h4>
-                  <p class="paragraph dark">Suisque metus tortor ultricies ac ligula neced
-                    eleifend dales felise morbi nec tempor isvel ultricies lideula. </p>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-4">
-            <a href="/blogs/4">
-              <div class="blog__single blog__single--4">
-                <div class="blog__single-image">
-                  <img src="assets/images/blog-img-4.png" alt="image">
-                </div>
-                <div class="blog__single-info">
-                  <h3>New features coming in 2020 to our app.</h3>
-                  <h4>12 <i class="fad fa-comment"></i><span>|</span>Dec 17, 2020</h4>
-                  <p class="paragraph dark">Suisque metus tortor ultricies ac ligula neced
-                    eleifend dales felise morbi nec tempor isvel ultricies lideula. </p>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-4">
-            <a href="/blogs/5">
-              <div class="blog__single blog__single--5">
-                <div class="blog__single-image">
-                  <img src="assets/images/blog-img-5.png" alt="image">
-                </div>
-                <div class="blog__single-info">
-                  <h3>New features coming in 2020 to our app.</h3>
-                  <h4>12 <i class="fad fa-comment"></i><span>|</span>Dec 17, 2020</h4>
-                  <p class="paragraph dark">Suisque metus tortor ultricies ac ligula neced
-                    eleifend dales felise morbi nec tempor isvel ultricies lideula. </p>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-8">
-            <a href="/blogs/6">
-              <div class="blog__single blog__single--6">
-                <div class="blog__single-image">
-                  <img src="assets/images/blog-img-6.png" alt="image">
-                </div>
-                <div class="blog__single-info">
-                  <h3>New features coming in 2020 to our app.</h3>
-                  <h4>12 <i class="fad fa-comment"></i><span>|</span>Dec 17, 2020</h4>
-                  <p class="paragraph dark">Suisque metus tortor ultricies ac ligula neced
-                    eleifend dales felise morbi nec tempor isvel ultricies lideula. </p>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-8 left">
-            <a href="/blogs/7">
-              <div class="blog__single blog__single--7">
-                <div class="blog__single-image">
-                  <img src="assets/images/blog-img-7.png" alt="image">
-                </div>
-                <div class="blog__single-info">
-                  <h3>New features coming in 2020 to our app.</h3>
-                  <h4>12 <i class="fad fa-comment"></i><span>|</span>Dec 17, 2020</h4>
-                  <p class="paragraph dark">Suisque metus tortor ultricies ac ligula neced
-                    eleifend dales felise morbi nec tempor isvel ultricies lideula. </p>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-4">
-            <a href="/blogs/8">
-              <div class="blog__single blog__single--8">
-                <div class="blog__single-image">
-                  <img src="assets/images/blog-img-8.png" alt="image">
-                </div>
-                <div class="blog__single-info">
-                  <h3>New features coming in 2020 to our app.</h3>
-                  <h4>12 <i class="fad fa-comment"></i><span>|</span>Dec 17, 2020</h4>
-                  <p class="paragraph dark">Suisque metus tortor ultricies ac ligula neced
-                    eleifend dales felise morbi nec tempor isvel ultricies lideula. </p>
+                  <h3>{{blog.blog.title}}</h3>
+                  <h4>{{blog.blog.date | date: 'mediumDate'}}</h4>
+                  <p class="paragraph dark">{{blog.blog.shortText}}</p>
                 </div>
               </div>
             </a>
