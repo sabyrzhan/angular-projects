@@ -30,40 +30,20 @@
           <div class="col-lg-3">
             <div class="category__dropdown dropdown-wrapper">
               <div class="category__dropdown-info dropdown-info">
-                <h6>Category</h6>
+                <h6>{{selectedCategory.name}}</h6>
                 <i class="fad fa-angle-double-down"></i>
               </div>
               <div class="category__dropdown-box dropdown-box">
                 <ul>
-                  <li>Technology</li>
-                  <li>Application</li>
-                  <li>Updates</li>
-                  <li>Promotions</li>
-                  <li>Help articles</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="date__dropdown dropdown-wrapper">
-              <div class="date__dropdown-info dropdown-info">
-                <h6>Date</h6>
-                <i class="fad fa-angle-double-down"></i>
-              </div>
-              <div class="date__dropdown-box dropdown-box">
-                <ul>
-                  <li>December 2020</li>
-                  <li>November 2020</li>
-                  <li>October 2020</li>
-                  <li>September 2020</li>
-                  <li>August 2020</li>
+                  <li (click)="handleSelectCategory(DEFAULT_CATEGORY, $event)">All</li>
+                  <li (click)="handleSelectCategory(cat, $event)" *ngFor="let cat of categories">{{cat.name}}</li>
                 </ul>
               </div>
             </div>
           </div>
           <div class="col-lg-4">
             <div class="search">
-              <input type="text" placeholder="Search" class="input-field">
+              <input type="text" placeholder="Search" class="input-field" (change)="searchBlog()" [(ngModel)]="searchText">
               <i class="fad fa-search"></i>
             </div>
           </div>
@@ -73,7 +53,7 @@
     <div class="blog__content">
       <div class="container">
         <div class="row">
-          <div class="{{blog.cssClass}}" *ngFor="let blog of blogs">
+          <div class="{{blog.cssClass}}" *ngFor="let blog of filteredBlogs">
             <a [routerLink]="['/blogs', blog.blog.id]">
               <div class="blog__single blog__single--1">
                 <div class="blog__single-image">
@@ -96,29 +76,3 @@
   </div>
 </section>
 <!--blog end-->
-
-<!--newsletter section start-->
-<section class="newsletter">
-  <div class="newsletter__wrapper">
-    <div class="container">
-      <div class="row align-items-lg-center">
-        <div class="col-lg-6">
-          <div class="newsletter__info">
-            <h2 class="section-heading color-black">Subscribe to our newsletter.</h2>
-            <form class="newsletter__info--field">
-              <input type="text" placeholder="Email address" class="input-field">
-              <button class="button"><span>SUBSCRIBE <i
-                class="fad fa-long-arrow-right"></i></span></button>
-            </form>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="newsletter__img">
-            <img src="assets/images/newsletter-img.png" alt="image">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!--newsletter section end-->

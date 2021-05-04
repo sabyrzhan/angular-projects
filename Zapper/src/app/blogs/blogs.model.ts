@@ -1,5 +1,6 @@
 export interface IBlog {
   id: number;
+  categoryId: number;
   imageUrl: string;
   smallImageUrl: string;
   title: string;
@@ -10,5 +11,5 @@ export interface IBlog {
 
 export interface IBlogView {
   blog: IBlog;
-  cssClass: string
+  cssClass: string;
 }
