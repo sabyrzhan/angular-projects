@@ -20,3 +20,4 @@ jobs:
           repository: sabyrzhan/angular-projects:zapper-backend-latest
           path: Zapper/zapper-backend
           dockerfile: Zapper/zapper-backend/Dockerfile
+          tag_with_ref: true
