@@ -22,3 +22,4 @@ jobs:
           registry: docker.pkg.github.com
           repository: sabyrzhan/angular-projects:zapper-backend-latest
           tag_with_ref: false
+          tags: zapper-backend-latest
