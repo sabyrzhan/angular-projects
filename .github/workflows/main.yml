@@ -20,4 +20,11 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Push to GitHub Packages
-        run: docker push sabyrzhan/angular-projects:zapper-backend-latest
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: sabyrzhan/angular-projects:zapper-backend-latest
+          path: Zapper/zapper-backend
+          dockerfile: Zapper/zapper-backend/Dockerfile
