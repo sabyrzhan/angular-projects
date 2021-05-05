@@ -1,5 +1,8 @@
 version: "3"
 services:
   zapper-backend:
-    image: zapper-backend
-    build: .
+    image: docker.pkg.github.com/sabyrzhan/angular-projects/zapper-backend:latest
+    build:
+      context: .
+    ports:
+      - 8080:8080
