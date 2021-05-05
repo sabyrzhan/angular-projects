@@ -26,4 +26,5 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
           repository: sabyrzhan/angular-projects:zapper-backend-latest
+          path: Zapper/zapper-backend
           dockerfile: Zapper/zapper-backend/Dockerfile
