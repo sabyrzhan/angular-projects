@@ -1,6 +1,10 @@
-name: Build docker image and push
+name: "Zapper-backend: build docker image and push to GitHub"
 
 on: push
+
+defaults:
+  run:
+    working-directory: Zapper/zapper-backend
 
 jobs:
   build-and-push-zapper-backend:
@@ -8,12 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Build the tagged Docker image
-        run: docker build --file Zapper/zapper-backend/Dockerfile --tag sabyrzhan/angular-projects:zapper-backend-latest .
+        run: docker build --file Dockerfile --tag sabyrzhan/angular-projects:zapper-backend-latest .
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v1
         with:
           push: true
-          context: Zapper/zapper-backend
+          context: .
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
