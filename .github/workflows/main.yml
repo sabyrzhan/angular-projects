@@ -17,7 +17,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: sabyrzhan/angular-projects:zapper-backend-latest
+          repository: sabyrzhan/angular-projects/zapper-backend
           path: Zapper/zapper-backend
           dockerfile: Zapper/zapper-backend/Dockerfile
-          tag_with_ref: true
