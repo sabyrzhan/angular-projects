@@ -75,7 +75,6 @@ input[type="button"] {
 
 @media only screen and (min-width:501px) and (max-width: 1000px) {
   div.container {
-    max-width: 100%;
     min-width: 501px;
   }
 
@@ -90,18 +89,10 @@ input[type="button"] {
   div.input-controls div.control {
     width: 100%;
   }
-
-  input[type="button"] {
-    background-color: #5200FF;
-    color: white;
-    height: 3rem;
-    font-size: .8rem;
-  }
 }
 
 @media only screen and (min-width: 1001px) {
   div.container {
-    max-width: none;
     min-width: auto;
     width: 100%;
     display: flex;
@@ -119,6 +110,5 @@ input[type="button"] {
 
   div.content-container {
     width: 70%;
-
   }
 }
