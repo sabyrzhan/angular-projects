@@ -1,0 +1,47 @@
+a {
+  display: block;
+  padding: 1em;
+}
+
+div.container {
+  background-color: #383A45;
+  border-radius: 8px;
+  max-width: 729px;
+  margin: 10% auto;
+  font-size: 16px;
+}
+
+img.photo {
+  width: 262px;
+  border-radius: 8px;
+  float: left;
+  margin-right: 1em;
+}
+
+p.title {
+  color: white;
+  font-size: 1.7em;
+  padding: 0px;
+}
+
+p.description {
+  color: #8D91A6;
+  font-size: 1em;
+}
+
+@media only screen and (max-width: 500px) {
+  img.photo {
+    width: 100%;
+    float: none;
+  }
+
+  div.container {
+    max-width: 300px;
+    text-align: center;
+    font-size: 18px;
+  }
+
+  div.content {
+    text-align: left;
+  }
+}
