@@ -1,0 +1,34 @@
+<section class="questions" id="faq">
+  <div class="questions__wrapper">
+    <div class="container">
+      <h2 class="section-heading color-black">Some frequently asked questions.</h2>
+      <div class="row align-items-lg-center">
+        <div class="col-lg-6 order-2 order-lg-1">
+          <div id="accordion">
+            <div class="card" id="card-{{i}}" *ngFor="let faq of faqs; let i = index">
+              <div class="card-header" id="heading-{{i}}">
+                <h5 class="mb-0" [class]="i != 0 ? 'hidden' : ''">
+                  <button class="btn btn-link" data-toggle="collapse" attr.data-target="#collapse-{{i}}" aria-expanded="true"
+                          attr.aria-controls="collapse-{{i}}">
+                    {{faq.question}}
+                  </button>
+                </h5>
+              </div>
+
+              <div id="collapse-{{i}}" class="collapse" [class]="i === 0 ? 'show' : ''" attr.aria-labelledby="heading-{{i}}" data-parent="#accordion">
+                <div class="card-body">
+                  <p class="paragraph">{{faq.answer}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2">
+          <div class="questions-img">
+            <img src="assets/images/phone-01.png" alt="image">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

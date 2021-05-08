@@ -1,0 +1,13 @@
+<div class="testimonial__wrapper">
+  <div class="client" *ngFor="let test of testimonials; let i = index" [class]="i === 0 ? 'active': ''">
+    <div class="image">
+      <img [src]="test.userAvatarUrl" alt="image">
+    </div>
+    <div class="testimonial">
+      <div class="testimonial__wrapper">
+        <p>“{{test.feedback}}”</p>
+        <h4>— {{test.userName}}</h4>
+      </div>
+    </div>
+  </div>
+</div>

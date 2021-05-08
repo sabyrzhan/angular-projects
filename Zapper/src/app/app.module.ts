@@ -10,6 +10,14 @@ import {BlogsComponent} from './blogs/blogs.component';
 import {BlogDetailsComponent} from './blog-details/blog-details.component';
 import {NavHeaderComponent} from './nav-header/nav-header.component';
 import {NavFooterComponent} from './nav-footer/nav-footer.component';
+import {TestimonialComponent} from './home/testimonial/testimonial.component';
+import {HttpClientModule} from '@angular/common/http';
+import {TestimonialService} from './home/testimonial/testimonial.service';
+import {FaqsComponent} from './home/faqs/faqs.component';
+import {FaqsService} from './home/faqs/faqs.service';
+import {BlogsService} from './blogs/blogs.service';
+import {DictionaryService} from './blogs/dictionary.service';
+import {FormsModule} from '@angular/forms';
 
 const gWindow = window as never;
 const jQuery = gWindow['$'];
@@ -20,15 +28,23 @@ const jQuery = gWindow['$'];
     NavHeaderComponent,
     NavFooterComponent,
     HomeComponent,
+    TestimonialComponent,
+    FaqsComponent,
     BlogsComponent,
     BlogDetailsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SwiperModule
+    SwiperModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
+    TestimonialService,
+    FaqsService,
+    BlogsService,
+    DictionaryService,
     {
       provide: JQ_TOKEN,
       useValue: jQuery
