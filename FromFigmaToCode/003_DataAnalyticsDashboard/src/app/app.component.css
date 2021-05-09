@@ -15,7 +15,7 @@ div.right-col {
 
 div.left-col {
   position: absolute;
-  width: 60%;
+  width: 13.3125rem;
   background-color: #2C2931;
   font-size: 1rem;
   font-weight: 400;
@@ -43,7 +43,6 @@ div.left-col a.selected {
   background-color: #4497FF;
 }
 
-
 div.header {
   display: grid;
   grid-template-columns: 2rem auto;
@@ -53,7 +52,6 @@ div.header {
 div.content {
   display: grid;
   place-items: center;
-  width: 100%;
   height: 100%;
 }
 
@@ -95,4 +93,46 @@ span.logo {
   font-weight: 800;
   font-size: 1.2rem;
   color: #2D7DFF;
+}
+
+@media only screen and (min-width: 700px) {
+  div.container {
+    display: grid;
+    grid-template-columns: 13.3125rem auto;
+  }
+
+  div.left-col {
+    position: relative;
+    display: block;
+    padding-top: 1.5rem;
+  }
+
+  a.hide-menu-button {
+    display: none !important;
+  }
+
+  div.header {
+    display: block;
+  }
+
+  span.logo {
+    text-align: left;
+  }
+
+  div.header img {
+    display: none;
+  }
+
+  div.content {
+    display: block;
+    height: auto;
+  }
+
+  h1 {
+    font-size: 4rem;
+  }
+
+  p {
+    font-size: 3rem;
+  }
 }
