@@ -132,44 +132,62 @@ a.stats-button:hover {
   background: var(--primary-color);
 }
 
-@media only screen and (min-width: 700px) {
-  div.container {
-    display: grid;
-    grid-template-columns: 13.3125rem auto;
+@media only screen and (min-width: 1000px) {
+  .left-col {
+    display: flex;
   }
 
-  div.left-col {
-    position: relative;
-    display: block;
-    padding-top: 1.5rem;
+  .content p {
+    width: 70%;
+  }
+
+  nav {
+    position: unset;
+    transform: translateX(0) !important;
+    border-radius: unset;
+    border-top-left-radius: 13px;
+    border-bottom-left-radius: 13px;
+    height: 100%;
+  }
+
+  .menu-button, .back-button {
+    display: none;
+  }
+
+
+  div.container {
+    display: flex;
+    padding: 2em;
+  }
+
+  ul {
+    margin-top: 4em;
   }
 
   a.hide-menu-button {
     display: none !important;
   }
 
-  div.header {
-    display: block;
+  header {
+    padding: 1.6em;
   }
 
-  span.logo {
+  .logo {
     text-align: left;
   }
 
-  div.header img {
-    display: none;
+  section {
+    border-radius: unset;
+    border-top-right-radius: 13px;
+    border-bottom-right-radius: 13px;
+    width: 100%;
+    background-size: cover;
+    background-position: 0;
+    background-attachment: unset;
   }
 
-  div.content {
-    display: block;
-    height: auto;
-  }
-
-  h1 {
-    font-size: 4rem;
-  }
-
-  p {
-    font-size: 3rem;
+  .content {
+    justify-self: left;
+    margin-left: 4em;
   }
 }

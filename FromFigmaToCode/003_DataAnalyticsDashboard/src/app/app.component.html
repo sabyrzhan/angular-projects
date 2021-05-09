@@ -1,7 +1,7 @@
 <div class="container">
   <div class="left-col" #menu>
     <nav class="menu" #nav [@openClose]="isOpen ? 'open' : 'closed'">
-      <img src="/assets/arrow.svg" (click)="toggle()"/>
+      <img src="/assets/arrow.svg" (click)="toggle()" class="back-button" />
       <ul>
         <li><a href="#" class="selected">Home</a></li>
         <li>
@@ -21,7 +21,7 @@
   </div>
   <section>
     <header>
-      <img src="/assets/menu.svg" href="#" (click)="toggle()" />
+      <img src="/assets/menu.svg" href="#" (click)="toggle()" class="menu-button" />
       <p class="logo">Logo</p>
     </header>
     <div class="cv">
