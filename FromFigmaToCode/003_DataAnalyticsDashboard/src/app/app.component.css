@@ -1,0 +1,98 @@
+div.container {
+  height: 100vh;
+}
+
+div.right-col, div.left-col {
+  height: 100vh;
+}
+
+div.right-col {
+  background-image: url("/assets/bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 2rem;
+}
+
+div.left-col {
+  position: absolute;
+  width: 60%;
+  background-color: #2C2931;
+  font-size: 1rem;
+  font-weight: 400;
+  display: none;
+}
+
+div.left-col a.hide-menu-button img {
+  transform: rotate(180deg);
+}
+
+div.left-col a {
+  display: block;
+  padding: 1rem 2rem 1rem 4rem;
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+div.left-col a:first-child {
+  padding: 2rem 4rem;
+}
+
+div.left-col a.selected {
+  font-weight: 700;
+  background-color: #4497FF;
+}
+
+
+div.header {
+  display: grid;
+  grid-template-columns: 2rem auto;
+  place-items: center;
+}
+
+div.content {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+h1 {
+  text-transform: uppercase;
+  font-size: 3rem;
+  font-weight: 800;
+  color: white;
+}
+
+p {
+  color: #847D93;
+  font-size: 2.125rem;
+  font-weight: 200;
+}
+
+a.stats-button {
+  text-decoration: none;
+  border: 1px solid #4D4D4D;
+  text-transform: uppercase;
+  color: white;
+  font-size: 1.125rem;
+  width: 15rem;
+  display: grid;
+  grid-template-columns: 1rem auto;
+  place-items: center;
+  padding: 1.2rem;
+  font-weight: 700;
+}
+
+a.stats-button:active {
+  background-color: #4497FF;
+}
+
+span.logo {
+  display: block;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: #2D7DFF;
+}

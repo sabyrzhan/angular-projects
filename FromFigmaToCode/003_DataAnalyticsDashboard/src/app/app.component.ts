@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +7,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'DataAnalyticsDashboard';
+  @ViewChild('menu')
+  menu?: ElementRef;
+
+  handleClickMenu(): void {
+    const div = this.menu!.nativeElement;
+    if (div.style.display === 'block') {
+      div.style.display = 'none';
+    } else {
+      div.style.display = 'block';
+    }
+  }
 }
