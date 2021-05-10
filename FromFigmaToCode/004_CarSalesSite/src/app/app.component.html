@@ -1,29 +1,31 @@
-<div class="container">
+<div class="container" #container>
   <header>
     <div class="headings">
       <h1>Available cars</h1>
       <p>There are 15 cars that match your criteria</p>
     </div>
     <div class="options">
-      <input type="text" class="search" />
-      <img src="/assets/menu.svg" class="menu" />
-    </div>
-    <div class="filter">
-      <div class="chk-container">
-        <input type="checkbox" id="new" />
-        <label for="new">New cars</label>
+      <div class="icons">
+        <input type="text" class="search" />
+        <img src="/assets/menu.svg" class="menu" (click)="isOpen = !isOpen" />
       </div>
-      <div class="chk-container">
-        <input type="checkbox" id="used" />
-        <label for="new">Used cars</label>
-      </div>
-      <div class="chk-container">
-        <input type="checkbox" id="dealership" />
-        <label for="new">Dealership</label>
-      </div>
-      <div class="chk-container">
-        <input type="checkbox" id="owner" />
-        <label for="new">For sale by owner</label>
+      <div class="filter" [@openClose]="isOpen ? 'open' : 'closed'" #filter>
+        <div class="chk-container">
+          <input type="checkbox" id="new" />
+          <label for="new">New cars</label>
+        </div>
+        <div class="chk-container">
+          <input type="checkbox" id="used" />
+          <label for="used">Used cars</label>
+        </div>
+        <div class="chk-container">
+          <input type="checkbox" id="dealership" />
+          <label for="dealership">Dealership</label>
+        </div>
+        <div class="chk-container">
+          <input type="checkbox" id="owner" />
+          <label for="owner">For sale by owner</label>
+        </div>
       </div>
     </div>
   </header>
@@ -39,7 +41,7 @@
       <p class="car-location">My address 777, Almaty</p>
       <div class="cols2">
         <p class="car-price">$17 000</p>
-        <i class="far fa-heart fa-lg"></i>
+        <fa-icon [icon]="['far', 'heart']" [size]="'lg'" #icon1 (click)="toggleHeart(icon1)"></fa-icon>
       </div>
     </div>
     <div class="cars">
@@ -47,7 +49,7 @@
       <p class="car-location">My address 777, Almaty</p>
       <div class="cols2">
         <p class="car-price">$17 000</p>
-        <i class="far fa-heart fa-lg"></i>
+        <fa-icon [icon]="['far', 'heart']" [size]="'lg'" #icon2 (click)="toggleHeart(icon2)"></fa-icon>
       </div>
     </div>
     <div class="cars">
@@ -55,7 +57,7 @@
       <p class="car-location">My address 777, Almaty</p>
       <div class="cols2">
         <p class="car-price">$17 000</p>
-        <i class="far fa-heart fa-lg"></i>
+        <fa-icon [icon]="['far', 'heart']" [size]="'lg'" #icon3 (click)="toggleHeart(icon3)"></fa-icon>
       </div>
     </div>
     <div class="cars">
@@ -63,7 +65,7 @@
       <p class="car-location">My address 777, Almaty</p>
       <div class="cols2">
         <p class="car-price">$17 000</p>
-        <i class="far fa-heart fa-lg"></i>
+        <fa-icon [icon]="['far', 'heart']" [size]="'lg'" #icon4 (click)="toggleHeart(icon4)"></fa-icon>
       </div>
     </div>
     <div class="cars">
@@ -71,7 +73,7 @@
       <p class="car-location">My address 777, Almaty</p>
       <div class="cols2">
         <p class="car-price">$17 000</p>
-        <i class="far fa-heart fa-lg"></i>
+        <fa-icon [icon]="['far', 'heart']" [size]="'lg'" #icon5 (click)="toggleHeart(icon5)"></fa-icon>
       </div>
     </div>
   </main>
