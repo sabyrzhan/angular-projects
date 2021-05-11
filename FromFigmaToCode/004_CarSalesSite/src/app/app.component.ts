@@ -36,12 +36,16 @@ export class AppComponent {
   containerDiv?: ElementRef;
 
   constructor() {
-    document.addEventListener('mouseup', this.toggleMenu.bind(this));
+    document.addEventListener('click', this.toggleMenu.bind(this));
   }
 
   toggleMenu(e?: any): void {
     if (!this.containerDiv!.nativeElement.contains(e.target)) {
-      this.isOpen = false;
+      if (e.target.classList.contains('menu')) {
+        this.isOpen = !this.isOpen;
+      } else {
+        this.isOpen = false;
+      }
     }
   }
 
