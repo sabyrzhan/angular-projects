@@ -1,0 +1,85 @@
+.menu-btn {
+  width: 2.5em;
+  cursor: pointer;
+}
+
+.top-bg-container {
+  height: 100vh;
+  position: absolute;
+  width: 90%;
+  top: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 80% auto;
+  z-index: -1;
+}
+
+.light-streaks {
+  background: #B2DD9E url("/assets/streaks.jpg");
+  background-blend-mode: screen;
+  background-size: cover;
+  height: 100vh;
+}
+
+.blue-col {
+  background-color: #7988BE;
+}
+
+.container {
+  margin: 0 1em;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  display: inline-block;
+  background-color: black;
+  padding: .2em .4em;
+  color: white;
+  font-size: 1.8rem;
+}
+
+.logo span {
+  color: #6889FF;
+}
+
+nav ul {
+  display: none;
+}
+
+.content {
+  text-align: center;
+  margin: 8em 3em 0;
+  height: 75vh;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: normal;
+  line-height: 92%;
+}
+
+.type p {
+  font-family: 'Montserrat', serif;
+  font-size: 1.125rem;
+  line-height: 141.6%;
+}
+
+.drone-container {
+  position: relative;
+  margin: 5em auto;
+  width: 65%;
+}
+
+.blur, .drone {
+  position: absolute;
+  left: 0;
+}
+
+.blur {
+  top: 1em;
+  opacity: .5;
+}

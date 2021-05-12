@@ -21,10 +21,10 @@
         <h1>Drone Racing Gone Wild!</h1>
         <p>Register now for the ultimate drone racing event. 5 mile courses and over $10 million in prize money!</p>
       </div>
-    </div>
-    <div class="drone-container">
-      <img src="/assets/blur.png" class="blur" />
-      <img src="/assets/drone.png" class="blur" />
+      <div class="drone-container">
+        <img src="/assets/blur.png" class="blur" [@animateBlur]="blurState" (@animateBlur.done)="onEnd('blur')" />
+        <img src="/assets/drone.png" class="drone" [@animateDrone]="droneState" (@animateDrone.done)="onEnd('drone')" />
+      </div>
     </div>
   </main>
 </div>
