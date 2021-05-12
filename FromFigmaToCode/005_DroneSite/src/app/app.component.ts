@@ -33,6 +33,20 @@ import {animate, keyframes, state, style, transition, trigger} from '@angular/an
       transition('up => down', [
         animate('2s')
       ])
+    ]),
+    trigger('toggleMenu', [
+      state('open', style({
+        transform: 'translateX(0)'
+      })),
+      state('closed', style({
+        transform: 'translateX(100%)'
+      })),
+      transition('open => closed', [
+        animate('.3s')
+      ]),
+      transition('closed => open', [
+        animate('.3s')
+      ])
     ])
   ]
 })
@@ -40,6 +54,7 @@ export class AppComponent {
   title = 'DroneSite';
   blurState = 'down';
   droneState = 'down';
+  isMenuOpen = false;
 
   onEnd(objectName: string): void {
     const fn = (stateName: string) => {

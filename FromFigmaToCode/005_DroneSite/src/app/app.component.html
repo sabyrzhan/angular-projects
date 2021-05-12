@@ -5,9 +5,9 @@
 <div class="container">
   <nav>
     <a href="#" class="logo"><span>Drone</span>.Series</a>
-    <img src="/assets/menu.svg" class="menu-btn"/>
-    <ul>
-      <li class="exit-btn"><img src="/assets/exit.svg"/></li>
+    <img src="/assets/menu.svg" class="menu-btn" (click)="isMenuOpen = !isMenuOpen" />
+    <ul [@toggleMenu]="isMenuOpen ? 'open' : 'closed'">
+      <li class="exit-btn"><img src="/assets/exit.svg" (click)="isMenuOpen = !isMenuOpen" /></li>
       <li><a href="#">Home</a></li>
       <li><a href="#">Races</a></li>
       <li><a href="#">Register</a></li>
