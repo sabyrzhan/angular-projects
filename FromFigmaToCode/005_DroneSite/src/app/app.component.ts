@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import {animate, keyframes, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
@@ -55,6 +55,15 @@ export class AppComponent {
   blurState = 'down';
   droneState = 'down';
   isMenuOpen = false;
+
+  constructor() {
+    this.updateMenuState();
+  }
+
+  @HostListener('window:resize')
+  updateMenuState(): void {
+    this.isMenuOpen = window.innerWidth >= 900;
+  }
 
   onEnd(objectName: string): void {
     const fn = (stateName: string) => {

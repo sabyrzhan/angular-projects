@@ -109,3 +109,53 @@ h1 {
   top: 1em;
   opacity: .5;
 }
+
+@media only screen and (min-width: 900px){
+  .top-bg-container {
+    width: 80%;
+    grid-template-columns: 60% auto;
+  }
+
+  .container {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .content {
+    display: flex;
+    text-align: left;
+    padding: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  h1 {
+    font-size: 5rem;
+    width: 80%;
+  }
+
+  .type p {
+    width: 80%;
+  }
+
+  /* NAV */
+  .menu-btn, .exit-btn {
+    display: none;
+  }
+
+  nav ul {
+    transform: translateX(0);
+    width: unset;
+    background: none;
+    display: flex;
+    padding-top: 1em;
+    padding-bottom: 0;
+    position: unset;
+    height: auto;
+  }
+
+  nav ul li a {
+    font-size: 1rem;
+    padding: 0 1em;
+  }
+}
