@@ -46,3 +46,21 @@ h2 {
 .gallery-container img:nth-of-type(5) {
   grid-area: e;
 }
+
+@media only screen and (min-width: 900px) {
+  .gallery {
+    display: flex;
+    gap: 4em;
+  }
+
+  .gallery-container {
+    margin-top: -5em;
+    z-index: 1;
+  }
+
+  h2 {
+    font-size: 4rem;
+    font-weight: normal;
+    line-height: 91.6%;
+  }
+}

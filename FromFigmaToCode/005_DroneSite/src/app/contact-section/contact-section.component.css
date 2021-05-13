@@ -60,3 +60,23 @@ button {
 .other-info a {
   color: black;
 }
+
+@media only screen and (min-width: 900px) {
+  .cols-2 {
+    display: flex;
+    gap: 3em;
+  }
+
+  .form-container, .other-info {
+    flex-basis: 0;
+    flex-grow: 1;
+  }
+
+  .other-info {
+    margin-top: 2em;
+  }
+
+  input {
+    padding: 1.5em;
+  }
+}

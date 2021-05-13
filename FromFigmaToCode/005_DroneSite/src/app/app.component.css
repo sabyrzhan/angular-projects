@@ -103,6 +103,7 @@ h1 {
 .blur, .drone {
   position: absolute;
   left: 0;
+  z-index: 1;
 }
 
 .blur {

@@ -37,3 +37,20 @@ cite:before {
   left: 0;
   top: 50%;
 }
+
+@media only screen and (min-width: 900px) {
+  .quote {
+    width: 80%;
+    display: grid;
+    place-content: center;
+  }
+
+  blockquote, cite {
+    width: 50%;
+    justify-self: center;
+  }
+
+  blockquote {
+    font-size: 2rem;
+  }
+}
