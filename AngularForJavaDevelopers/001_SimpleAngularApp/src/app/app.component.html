@@ -1,2 +1,7 @@
-<p>Root component</p>
-<app-page1></app-page1>
+<app-header #appHeader></app-header>
+<div class="content">
+  <app-page1 *ngIf="appHeader.pageNumber == 1"></app-page1>
+  <app-page2 *ngIf="appHeader.pageNumber == 2"></app-page2>
+  <app-page3 *ngIf="appHeader.pageNumber == 3"></app-page3>
+</div>
+<app-footer></app-footer>
