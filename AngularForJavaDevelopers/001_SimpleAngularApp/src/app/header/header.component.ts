@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {FooterComponent} from '../footer/footer.component';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
   pageNumber = 1;
 
+  @Input()
+  footer?: FooterComponent;
+
+  @Output()
+  pageChanged = new EventEmitter();
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+
+  changePage(page: number): void {
+    this.pageNumber = page;
+    this.footer!.renderTime = new Date();
+    this.pageChanged.emit(page);
+  }
 }

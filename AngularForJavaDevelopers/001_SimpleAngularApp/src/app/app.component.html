@@ -1,7 +1,7 @@
-<app-header #appHeader></app-header>
+<app-header #appHeader [footer]="footer" (pageChanged)="incrementPageHit($event)"></app-header>
 <div class="content">
-  <app-page1 *ngIf="appHeader.pageNumber == 1"></app-page1>
-  <app-page2 *ngIf="appHeader.pageNumber == 2"></app-page2>
-  <app-page3 *ngIf="appHeader.pageNumber == 3"></app-page3>
+  <app-page1 [hidden]="appHeader.pageNumber != 1"></app-page1>
+  <app-page2 [hidden]="appHeader.pageNumber != 2" #page2></app-page2>
+  <app-page3 [hidden]="appHeader.pageNumber != 3"></app-page3>
 </div>
-<app-footer></app-footer>
+<app-footer #footer></app-footer>
