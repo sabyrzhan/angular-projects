@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Book} from '../model/Model';
+import {AirportCity, Book, City} from '../model/Model';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +13,20 @@ export class AppComponent {
 
   constructor() {
     //this.someMethod();
-    this.someObjects();
+    //this.someObjects();
+    this.someEnums();
+  }
+
+  someEnums(): void {
+    console.log(Object.values(City));
+    console.log(Object.keys(AirportCity));
+    for (let key of this.enumKeys(AirportCity)) {
+      console.log(AirportCity[key] === 'Almaty' ? key : 'NONE');
+    }
+  }
+
+  enumKeys<O extends object, K extends keyof O = keyof O>(obj: O): K[] {
+    return Object.keys(obj).filter(k => Number.isNaN(+k)) as K[];
   }
 
   someObjects(): void {
