@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Book} from '../model/Model';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,16 @@ export class AppComponent {
   readonly CLASS_LEVEL_CONST = 1;
 
   constructor() {
-    this.someMethod();
+    //this.someMethod();
+    this.someObjects();
+  }
+
+  someObjects(): void {
+    const book = new Book();
+    book.author = 'SomeAuthor';
+    book.title = 'SomeTitle';
+    book.price = 10;
+    console.log('' + book); // toString works only when concatenating with other string
   }
 
   someMethod(): void {
