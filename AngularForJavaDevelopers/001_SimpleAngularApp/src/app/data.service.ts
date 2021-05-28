@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import {Book} from './model/Book';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-
   books: Array<Book> = new Array<Book>();
+  deleteBookEmitter = new EventEmitter<Book>();
 
   constructor() {
     this.books.push(this.createBook('TItle 1', 'author 1', 1));
@@ -16,10 +16,14 @@ export class DataService {
 
   removeLastBook(): Book | null {
     if (this.books.length === 0) {
+      this.deleteBookEmitter.error('No more book available');
       return null;
     }
 
-    return this.books.pop()!;
+    const removedBook = this.books.pop()!;
+    this.deleteBookEmitter.emit(removedBook);
+
+    return removedBook;
   }
 
   private createBook(title: string, author: string, price: number): Book {
