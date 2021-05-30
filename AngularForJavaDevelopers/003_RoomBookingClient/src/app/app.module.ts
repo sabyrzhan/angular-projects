@@ -11,6 +11,12 @@ import {RouterModule, Routes} from '@angular/router';
 const routes: Routes = [
   {
     path: 'admin/users', component: UsersComponent
+  },
+  {
+    path: 'admin/rooms', component: RoomsComponent
+  },
+  {
+    path: '', component: CalendarComponent
   }
 ];
 
