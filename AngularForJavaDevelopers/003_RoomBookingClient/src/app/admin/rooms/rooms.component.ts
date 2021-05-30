@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {DataService} from '../../data.service';
+import {Room} from '../../model/Room';
 
 @Component({
   selector: 'app-rooms',
@@ -6,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./rooms.component.css']
 })
 export class RoomsComponent implements OnInit {
+  rooms: Array<Room> = new Array<Room>();
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
+    this.rooms = this.dataService.rooms;
   }
 
 }
