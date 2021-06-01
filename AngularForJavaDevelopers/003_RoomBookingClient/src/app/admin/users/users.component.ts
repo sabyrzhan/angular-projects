@@ -11,6 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class UsersComponent implements OnInit {
   users: Array<User> = new Array<User>();
   selectedUser?: User;
+  action?: string;
 
   constructor(private dataService: DataService,
               private route: ActivatedRoute,
@@ -19,14 +20,17 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.users = this.dataService.users;
     this.route.queryParams.subscribe(param => {
-      if (param.id) {
+      const id = param.id;
+      const action = param.action;
+      if (id) {
         this.selectUser(+param.id);
+        this.action = action;
       }
     });
   }
 
   selectUser(id: number): void {
     this.selectedUser = this.users.find(u => u.id === id);
-    this.router.navigate(['admin/users'], {queryParams: {id}});
+    this.router.navigate(['admin/users'], {queryParams: {id, action: 'view'}});
   }
 }
