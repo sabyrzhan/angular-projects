@@ -23,14 +23,13 @@ export class UsersComponent implements OnInit {
       const id = param.id;
       const action = param.action;
       if (id) {
-        this.selectUser(+param.id);
+        this.selectedUser = this.users.find(u => u.id === +id);
         this.action = action;
       }
     });
   }
 
   selectUser(id: number): void {
-    this.selectedUser = this.users.find(u => u.id === id);
     this.router.navigate(['admin/users'], {queryParams: {id, action: 'view'}});
   }
 }

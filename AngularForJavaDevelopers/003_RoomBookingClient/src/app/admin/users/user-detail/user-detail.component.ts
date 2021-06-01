@@ -17,6 +17,6 @@ export class UserDetailComponent implements OnInit {
   }
 
   editUser(): void {
-    this.router.navigate(['admin/users'], {queryParams: {action: 'edit', id: 2}});
+    this.router.navigate(['admin/users'], {queryParams: {action: 'edit', id: this.user?.id}});
   }
 }
