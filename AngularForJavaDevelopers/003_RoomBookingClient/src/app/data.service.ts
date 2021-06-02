@@ -1,17 +1,27 @@
 import {Injectable} from '@angular/core';
 import {Layout, LayoutCapacity, Room} from './model/Room';
 import {User} from './model/User';
+import {Observable, of} from 'rxjs';
+import {delay, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  rooms: Array<Room> = new Array<Room>();
-  users: Array<User> = new Array<User>();
+  private rooms: Array<Room> = new Array<Room>();
+  private users: Array<User> = new Array<User>();
 
   constructor() {
     this.generateRooms();
     this.generateUsers();
+  }
+
+  getRooms(): Observable<Array<Room>> {
+    return of(this.rooms).pipe(delay(150));
+  }
+
+  getUsers(): Observable<Array<User>> {
+    return of(this.users).pipe(delay(150));
   }
 
   private generateUsers(): void {
