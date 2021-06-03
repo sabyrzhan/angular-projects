@@ -13,6 +13,7 @@ export class UserEditComponent implements OnInit {
   user?: User;
   message?: string;
   formUser?: User;
+  password?: string;
 
   constructor(private dataService: DataService,
               private router: Router) { }
@@ -22,8 +23,14 @@ export class UserEditComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.dataService.updateUser(this.formUser!).subscribe(updatedUser => {
-      this.router.navigate(['admin/users'], {queryParams: {id: updatedUser.id, action: 'view'}});
-    });
+    const navigateFn = (user: User): void => {
+      this.router.navigate(['admin/users'], {queryParams: {id: user.id, action: 'view'}});
+    };
+
+    if (this.formUser?.id != null) {
+      this.dataService.updateUser(this.formUser!).subscribe(navigateFn);
+    } else {
+      this.dataService.addUser(this.formUser!, this.password!).subscribe(navigateFn);
+    }
   }
 }

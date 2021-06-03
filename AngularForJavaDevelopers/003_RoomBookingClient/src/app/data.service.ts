@@ -31,6 +31,12 @@ export class DataService {
     return of(existingUser);
   }
 
+  addUser(newUser: User, password: string): Observable<User> {
+    newUser.id = this.users[this.users.length - 1].id! + 1;
+    this.users.push(newUser);
+    return of(newUser);
+  }
+
   private generateUsers(): void {
     for (let i = 1; i <= 10; i++) {
       const user = new User();
