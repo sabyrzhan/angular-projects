@@ -24,6 +24,13 @@ export class DataService {
     return of(this.users).pipe(delay(150));
   }
 
+  updateUser(user: User): Observable<User> {
+    const existingUser = this.users.find(u => u.id === user.id)!;
+    existingUser.name = user?.name;
+
+    return of(existingUser);
+  }
+
   private generateUsers(): void {
     for (let i = 1; i <= 10; i++) {
       const user = new User();
