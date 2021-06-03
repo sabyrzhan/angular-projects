@@ -27,5 +27,3 @@ export class UserEditComponent implements OnInit {
     });
   }
 }
-
-
