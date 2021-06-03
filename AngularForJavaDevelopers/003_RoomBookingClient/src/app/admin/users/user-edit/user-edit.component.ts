@@ -9,10 +9,18 @@ import {User} from '../../../model/User';
 export class UserEditComponent implements OnInit {
   @Input()
   user?: User;
+  message?: string;
+  formUser?: User;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.formUser = Object.assign({}, this.user);
   }
 
+  onSubmit(): void {
+    console.log(this.formUser);
+  }
 }
+
+
