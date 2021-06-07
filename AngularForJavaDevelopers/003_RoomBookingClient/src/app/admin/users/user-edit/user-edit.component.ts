@@ -28,10 +28,18 @@ export class UserEditComponent implements OnInit {
       this.router.navigate(['admin/users'], {queryParams: {id: user.id, action: 'view'}});
     };
 
-    if (this.formUser?.id != null) {
-      this.dataService.updateUser(this.formUser!).subscribe(navigateFn);
+    if (this.formUser) {
+      if (this.formUser?.id != null) {
+        this.dataService.updateUser(this.formUser).subscribe(navigateFn);
+      } else {
+        if (this.password) {
+          this.dataService.addUser(this.formUser, this.password).subscribe(navigateFn);
+        } else {
+          console.error('failed to add user. Password is null');
+        }
+      }
     } else {
-      this.dataService.addUser(this.formUser!, this.password!).subscribe(navigateFn);
+      console.error('failed to add/update user. formUser is null');
     }
   }
 }

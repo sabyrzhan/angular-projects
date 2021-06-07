@@ -25,6 +25,7 @@ export class UsersComponent implements OnInit {
     this.route.queryParams.subscribe(param => {
       const id = param.id;
       this.action = param.action;
+      this.selectedUser = undefined;
       if (id) {
         this.selectedUser = this.users.find(u => u.id === +id);
       }
