@@ -14,14 +14,17 @@
 
   <div class="form-group" *ngIf="user?.id == null">
     <label for="password">Password</label>
-    <input type="password" class="form-control" id="password" placeholder="password" [ngModel]="password" name="password">
-    <div class="alert alert-danger">error message placeholder</div>
+    <input type="password" class="form-control" id="password" placeholder="password" [(ngModel)]="password" name="password" required #passwordField="ngModel" (change)="validatePassword(1)">
+    <div *ngIf="passwordField.invalid && passwordField.touched" class="alert alert-danger">Password is required</div>
+    <div *ngIf="!isPassword1Valid && passwordField.touched" class="alert alert-danger">Password cannot be blank</div>
 
     <label for="password2">Password2</label>
-    <input type="password" class="form-control" id="password2" placeholder="password" [ngModel]="password2" name="password2">
-    <div class="alert alert-danger">error message placeholder</div>
+    <input type="password" class="form-control" id="password2" placeholder="password" [(ngModel)]="password2" name="password2" required #password2Field="ngModel" (change)="validatePassword(2)">
+    <div *ngIf="password2Field.invalid && password2Field.touched" class="alert alert-danger">Password2 is required</div>
+    <div *ngIf="!isPassword2Valid && password2Field.touched" class="alert alert-danger">Password2 cannot be blank</div>
+    <div *ngIf="!passwordsMatch && passwordField.touched" class="alert alert-danger">Passwords dont match</div>
 
   </div>
 
-  <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid || !nameIsValid">Save</button>
+  <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid || !nameIsValid || !arePasswordsValid()">Save</button>
 </form>
