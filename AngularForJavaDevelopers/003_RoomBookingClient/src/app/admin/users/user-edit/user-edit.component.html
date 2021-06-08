@@ -6,8 +6,9 @@
 
   <div class="form-group">
     <label for="name">Name</label>
-    <input type="text" class="form-control" id="name" placeholder="user name" [(ngModel)]="formUser!.name" name="name" required #nameField="ngModel">
+    <input type="text" class="form-control" id="name" placeholder="user name" [(ngModel)]="formUser!.name" name="name" required #nameField="ngModel" (change)="validateName()">
     <div *ngIf="nameField.invalid && nameField.touched" class="alert alert-danger">Username is required</div>
+    <div *ngIf="!nameIsValid && nameField.touched" class="alert alert-danger">Username cannot be blank</div>
 
   </div>
 
@@ -22,5 +23,5 @@
 
   </div>
 
-  <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Save</button>
+  <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid || !nameIsValid">Save</button>
 </form>

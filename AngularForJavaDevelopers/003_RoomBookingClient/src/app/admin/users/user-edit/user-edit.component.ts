@@ -16,11 +16,14 @@ export class UserEditComponent implements OnInit {
   password?: string;
   password2?: string;
 
+  nameIsValid = false;
+
   constructor(private dataService: DataService,
               private router: Router) { }
 
   ngOnInit(): void {
     this.formUser = Object.assign({}, this.user);
+    this.validateName();
   }
 
   onSubmit(): void {
@@ -40,6 +43,12 @@ export class UserEditComponent implements OnInit {
       }
     } else {
       console.error('failed to add/update user. formUser is null');
+    }
+  }
+
+  validateName(): void {
+    if (this.formUser && this.formUser.name) {
+      this.nameIsValid = this.formUser.name.trim().length > 0;
     }
   }
 }
