@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Room} from '../../../model/Room';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-room-detail',
@@ -10,8 +11,12 @@ export class RoomDetailComponent implements OnInit {
   @Input()
   room?: Room;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  editRoom(): void {
+    this.router.navigate(['admin/rooms'], {queryParams: {action: 'edit', id: this.room?.id}});
   }
 }
