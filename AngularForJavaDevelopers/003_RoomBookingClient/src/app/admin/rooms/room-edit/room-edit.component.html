@@ -15,7 +15,10 @@
 
   <h2>This room can accomodate:</h2>
 
-  <!-- list the layout types here -->
+  <div class="form-group" *ngFor="let layout of layouts">
+    <label>{{layout[1]}}</label>
+    <input class="form-control" type="number" id="layout{{layout[0]}}" formControlName="layout{{layout[0]}}" />
+  </div>
 
   <button type="submit" class="btn btn-primary">Save</button>
 </form>
