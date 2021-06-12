@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Layout, LayoutCapacity, Room} from './model/Room';
 import {User} from './model/User';
 import {Observable, of} from 'rxjs';
-import {delay, tap} from 'rxjs/operators';
+import {delay, last, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +35,32 @@ export class DataService {
     newUser.id = this.users[this.users.length - 1].id! + 1;
     this.users.push(newUser);
     return of(newUser);
+  }
+
+  updateRoom(room: Room): Observable<Room> {
+    const originalRoom = this.rooms.find(r => r.id === room.id);
+    if (originalRoom) {
+      originalRoom.name = room.name;
+      originalRoom.location = room.location;
+      originalRoom.capacities = room.capacities;
+    } else {
+      console.error('Original room not found');
+    }
+
+    return of(room);
+  }
+
+  addRoom(newRoom: Room): Observable<Room> {
+    const lastId = this.rooms[this.rooms.length - 1].id;
+    if (lastId) {
+      const nextId =  lastId + 1;
+      newRoom.id = nextId;
+    } else {
+      newRoom.id = 1;
+    }
+
+    this.rooms.push(newRoom);
+    return of(newRoom);
   }
 
   private generateUsers(): void {
