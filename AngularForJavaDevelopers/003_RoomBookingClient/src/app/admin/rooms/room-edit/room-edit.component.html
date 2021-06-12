@@ -1,6 +1,6 @@
 <h1> {{room?.id == null ? 'Add' : 'Edit'}} Room</h1>
 
-<form [formGroup]="roomForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="roomForm!" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="name">Name</label>
     <input type="text" class="form-control" id="name" placeholder="room name" formControlName="roomName" required="required">
