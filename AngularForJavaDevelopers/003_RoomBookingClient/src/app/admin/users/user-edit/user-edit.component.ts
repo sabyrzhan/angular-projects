@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../../../model/User';
 import {DataService} from '../../../data.service';
 import {Router} from '@angular/router';
+import {FormResetService} from '../../../form-reset.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -22,9 +23,18 @@ export class UserEditComponent implements OnInit {
   passwordsMatch = false;
 
   constructor(private dataService: DataService,
-              private router: Router) { }
+              private router: Router,
+              private formResetService: FormResetService) { }
 
   ngOnInit(): void {
+    this.initializeForm();
+    this.formResetService.resetUserFormEmitter.subscribe(user => {
+      this.user = user;
+      this.initializeForm();
+    });
+  }
+
+  private initializeForm(): void {
     this.formUser = Object.assign({}, this.user);
     this.validateName();
     this.validatePassword(1);
@@ -62,7 +72,6 @@ export class UserEditComponent implements OnInit {
     switch (which) {
       case 1:
         this.isPassword1Valid = this.password ? this.password.trim().length > 0 : false;
-        console.log(this.password);
         break;
       case 2:
         this.isPassword2Valid = this.password2 ? this.password2.trim().length > 0 : false;
