@@ -3,6 +3,7 @@ import {Layout, LayoutCapacity, Room} from '../../../model/Room';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DataService} from '../../../data.service';
 import {Router} from '@angular/router';
+import {FormResetService} from '../../../form-reset.service';
 
 @Component({
   selector: 'app-room-edit',
@@ -20,9 +21,18 @@ export class RoomEditComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private dataService: DataService,
-              private router: Router) { }
+              private router: Router,
+              private formResetService: FormResetService) { }
 
   ngOnInit(): void {
+    this.initializeForm();
+    this.formResetService.resetRoomFormEmitter.subscribe(room => {
+      this.room = room;
+      this.initializeForm();
+    });
+  }
+
+  private initializeForm(): void {
     this.layouts = Object.entries(Layout);
     this.roomForm = this.formBuilder.group({
       roomName: [this.room?.name, Validators.required],
