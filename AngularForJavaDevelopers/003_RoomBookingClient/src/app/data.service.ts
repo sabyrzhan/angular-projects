@@ -63,6 +63,29 @@ export class DataService {
     return of(newRoom);
   }
 
+  deleteRoom(id: number): Observable<any> {
+    const room = this.rooms.find(r => r.id === id);
+    if (room) {
+      const index = this.rooms.indexOf(room);
+      this.rooms.splice(index, 1);
+    }
+
+    return of(room);
+  }
+
+  deleteUser(id: number): Observable<any> {
+    const user = this.rooms.find(u => u.id === id);
+    if (user) {
+      const index = this.users.indexOf(user);
+      this.users.splice(index, 1);
+    }
+    return of(user);
+  }
+
+  resetPassword(id: number): Observable<any> {
+    return of(null);
+  }
+
   private generateUsers(): void {
     for (let i = 1; i <= 10; i++) {
       const user = new User();
