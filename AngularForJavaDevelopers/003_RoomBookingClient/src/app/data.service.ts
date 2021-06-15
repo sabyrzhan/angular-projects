@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {Layout, LayoutCapacity, Room} from './model/Room';
 import {User} from './model/User';
 import {Observable, of} from 'rxjs';
-import {delay, last, tap} from 'rxjs/operators';
+import {delay} from 'rxjs/operators';
+import {Booking} from './model/Booking';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,12 @@ import {delay, last, tap} from 'rxjs/operators';
 export class DataService {
   private rooms: Array<Room> = new Array<Room>();
   private users: Array<User> = new Array<User>();
+  private bookings: Array<Booking> = new Array<Booking>();
 
   constructor() {
     this.generateRooms();
     this.generateUsers();
+    this.generateBookings();
   }
 
   getRooms(): Observable<Array<Room>> {
@@ -22,6 +25,10 @@ export class DataService {
 
   getUsers(): Observable<Array<User>> {
     return of(this.users).pipe(delay(150));
+  }
+
+  getBookings(): Observable<Array<Booking>> {
+    return of(this.bookings);
   }
 
   updateUser(user: User): Observable<User> {
@@ -125,5 +132,31 @@ export class DataService {
 
     this.rooms.push(room1);
     this.rooms.push(room2);
+  }
+
+  private generateBookings(): void {
+    const booking1 = new Booking();
+    booking1.id = 1;
+    booking1.room = this.rooms[0];
+    booking1.user = this.users[0];
+    booking1.layout = Layout.THEATER;
+    booking1.title = 'Booking 1';
+    booking1.date = '2021-06-14';
+    booking1.startTime = '11:00';
+    booking1.endTime = '13:00';
+    booking1.participants = 13;
+    this.bookings.push(booking1);
+
+    const booking2 = new Booking();
+    booking2.id = 2;
+    booking2.room = this.rooms[1];
+    booking2.user = this.users[1];
+    booking2.layout = Layout.USHAPE;
+    booking2.title = 'Booking 2';
+    booking2.date = '2021-06-14';
+    booking2.startTime = '09:00';
+    booking2.endTime = '11:00';
+    booking2.participants = 4;
+    this.bookings.push(booking2);
   }
 }
