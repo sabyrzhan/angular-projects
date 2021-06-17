@@ -31,6 +31,11 @@ export class DataService {
     return of(this.bookings);
   }
 
+  getBooking(id: number): Observable<Booking | undefined> {
+    const booking = this.bookings.find(b => b.id === id);
+    return booking ? of(booking) : of(undefined);
+  }
+
   updateUser(user: User): Observable<User> {
     const existingUser = this.users.find(u => u.id === user.id)!;
     existingUser.name = user?.name;
