@@ -4,6 +4,7 @@ import {User} from './model/User';
 import {Observable, of} from 'rxjs';
 import {delay} from 'rxjs/operators';
 import {Booking} from './model/Booking';
+import {formatDate} from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +28,8 @@ export class DataService {
     return of(this.users).pipe(delay(150));
   }
 
-  getBookings(): Observable<Array<Booking>> {
-    return of(this.bookings);
+  getBookings(date: string): Observable<Array<Booking>> {
+    return of(this.bookings.filter(b => b.date === date));
   }
 
   getBooking(id: number): Observable<Booking | undefined> {
@@ -178,7 +179,7 @@ export class DataService {
     booking1.user = this.users[0];
     booking1.layout = Layout.THEATER;
     booking1.title = 'Booking 1';
-    booking1.date = '2021-06-14';
+    booking1.date = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
     booking1.startTime = '11:00';
     booking1.endTime = '13:00';
     booking1.participants = 13;
@@ -190,7 +191,7 @@ export class DataService {
     booking2.user = this.users[1];
     booking2.layout = Layout.USHAPE;
     booking2.title = 'Booking 2';
-    booking2.date = '2021-06-14';
+    booking2.date = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
     booking2.startTime = '09:00';
     booking2.endTime = '11:00';
     booking2.participants = 4;
