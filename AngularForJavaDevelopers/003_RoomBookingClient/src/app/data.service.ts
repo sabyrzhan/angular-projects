@@ -36,6 +36,38 @@ export class DataService {
     return booking ? of(booking) : of(undefined);
   }
 
+  saveBooking(booking: Booking): Observable<Booking | undefined> {
+    const existingBooking = this.bookings.find(b => b.id === booking.id);
+    if (existingBooking) {
+      existingBooking.date = booking.date;
+      existingBooking.startTime = booking.startTime;
+      existingBooking.endTime = booking.endTime;
+      existingBooking.title = booking.title;
+      existingBooking.layout = booking.layout;
+      existingBooking.room = booking.room;
+      existingBooking.user = booking.user;
+      existingBooking.participants = booking.participants;
+    }
+
+    return of(existingBooking);
+  }
+
+  addBooking(booking: Booking): Observable<Booking> {
+    booking.id = this.bookings[this.bookings.length - 1].id! + 1;
+    this.bookings.push(booking);
+    return of(booking);
+  }
+
+  deleteBooking(id: number): Observable<any> {
+    const foundBooking = this.bookings.find(b => b.id === id);
+    if (foundBooking) {
+      const index = this.bookings.indexOf(foundBooking);
+      this.bookings.splice(index, 1);
+    }
+
+    return of(null);
+  }
+
   updateUser(user: User): Observable<User> {
     const existingUser = this.users.find(u => u.id === user.id)!;
     existingUser.name = user?.name;
