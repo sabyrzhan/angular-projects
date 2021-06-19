@@ -3,9 +3,7 @@ package com.virtualpairprogrammers.roombooking.rest;
 import com.virtualpairprogrammers.roombooking.data.RoomRepository;
 import com.virtualpairprogrammers.roombooking.model.entities.Room;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,5 +16,20 @@ public class RestRoomsController {
   @GetMapping
   public List<Room> getRooms() {
     return roomRepository.findAll();
+  }
+
+  @GetMapping("/{id}")
+  public Room getRoomById(@PathVariable long id) {
+    return roomRepository.findById(id).get();
+  }
+
+  @PostMapping
+  public Room addRoom(@RequestBody Room room) {
+    return roomRepository.save(room);
+  }
+
+  @PutMapping
+  public Room updateroom(@RequestBody Room room) {
+    return roomRepository.save(room);
   }
 }
