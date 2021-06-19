@@ -30,6 +30,9 @@ public class RestUsersController {
 
   @PutMapping
   public User updateUser(@RequestBody User user) {
-    return userRepository.save(user);
+    return userRepository.findById(user.getId()).map(existing -> {
+      existing.setName(user.getName());
+      return userRepository.save(existing);
+    }).orElseThrow(() -> new IllegalArgumentException("User with ID=" + user.getId() + " not found"));
   }
 }

@@ -30,6 +30,11 @@ public class RestRoomsController {
 
   @PutMapping
   public Room updateroom(@RequestBody Room room) {
-    return roomRepository.save(room);
+    return roomRepository.findById(room.getId()).map(existing -> {
+      existing.setName(room.getName());
+      existing.setLocation(room.getLocation());
+      existing.setCapacities(room.getCapacities());
+      return roomRepository.save(existing);
+    }).orElseThrow(() -> new IllegalArgumentException("Room with ID=" + room.getId() + " not found"));
   }
 }
