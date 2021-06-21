@@ -3,12 +3,14 @@ import {Room} from './model/Room';
 import {User} from './model/User';
 import {Observable, of} from 'rxjs';
 import {Booking} from './model/Booking';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  constructor() {
+  constructor(private httpClient: HttpClient) {
   }
 
   getRooms(): Observable<Array<Room>> {
@@ -65,5 +67,9 @@ export class DataService {
 
   resetPassword(id: number): Observable<any> {
     return of(null);
+  }
+
+  getUser(id: number): Observable<User> {
+    return this.httpClient.get(environment.restUrl + '/api/users/' + id);
   }
 }
