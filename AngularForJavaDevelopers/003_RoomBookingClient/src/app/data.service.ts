@@ -5,6 +5,7 @@ import {Observable, of} from 'rxjs';
 import {Booking} from './model/Booking';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../environments/environment';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,27 @@ export class DataService {
   }
 
   getRooms(): Observable<Array<Room>> {
-    return of(new Array());
+    return this.httpClient.get<Array<Room>>(environment.restUrl + '/api/rooms').pipe(
+      map((data: Array<Room>) => {
+        const result = new Array<Room>();
+        for (const d of data) {
+          result.push(Room.mapHttpRoom(d));
+        }
+        return result;
+      })
+    );
   }
 
   getUsers(): Observable<Array<User>> {
-    return of(new Array());
+    return this.httpClient.get<Array<User>>(environment.restUrl + '/api/users').pipe(
+      map((data: Array<User>) => {
+        const result = new Array<User>();
+        for (const d of data) {
+          result.push(User.mapHttpUser(d));
+        }
+        return result;
+      })
+    );
   }
 
   getBookings(date: string): Observable<Array<Booking>> {
@@ -70,6 +87,8 @@ export class DataService {
   }
 
   getUser(id: number): Observable<User> {
-    return this.httpClient.get(environment.restUrl + '/api/users/' + id);
+    return this.httpClient.get<User>(environment.restUrl + '/api/users/' + id).pipe(
+      map(data => User.mapHttpUser(data))
+    );
   }
 }
