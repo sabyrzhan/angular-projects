@@ -15,6 +15,7 @@ export class RoomsComponent implements OnInit {
   action?: string;
   loadingData = true;
   statusMessage = 'Please wait. Loading data...';
+  reloadAttempts = 0;
 
   constructor(private dataService: DataService,
               private route: ActivatedRoute,
@@ -22,16 +23,7 @@ export class RoomsComponent implements OnInit {
               private formResetService: FormResetService) { }
 
   ngOnInit(): void {
-    this.dataService.getRooms().subscribe(
-      rooms => {
-        this.rooms = rooms;
-        this.loadingData = false;
-      },
-      error => {
-        this.statusMessage = 'Error data while loading data. Please try again!';
-        console.error(error);
-      }
-    );
+    this.loadRooms();
     this.route.queryParams.subscribe(param => {
       this.action = param.action;
       this.selectedRoom = undefined;
@@ -44,6 +36,26 @@ export class RoomsComponent implements OnInit {
         this.formResetService.resetRoomFormEmitter.emit(this.selectedRoom);
       }
     });
+  }
+
+  loadRooms(): void {
+    this.dataService.getRooms().subscribe(
+      rooms => {
+        this.reloadAttempts = 0;
+        this.rooms = rooms;
+        this.loadingData = false;
+      },
+      error => {
+        this.reloadAttempts++;
+        if (this.reloadAttempts < 10) {
+          this.statusMessage = 'Error data while loading data. Retrying...';
+          this.loadRooms();
+        } else {
+          this.statusMessage = 'Error data while loading data. Please contact support.';
+        }
+        console.error(error);
+      }
+    );
   }
 
   selectRoom(id: number): void {

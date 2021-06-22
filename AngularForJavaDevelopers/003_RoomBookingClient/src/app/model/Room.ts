@@ -26,7 +26,6 @@ export class Room {
     const entries = Object.entries(Layout);
     for (const e of entries) {
       if (e[0] === layout) {
-        console.log(e);
         return e[1] as Layout;
       }
     }
