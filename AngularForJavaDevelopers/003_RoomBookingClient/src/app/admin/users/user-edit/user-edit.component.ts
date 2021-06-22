@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
 import {User} from '../../../model/User';
 import {DataService} from '../../../data.service';
 import {Router} from '@angular/router';
@@ -22,6 +22,9 @@ export class UserEditComponent implements OnInit {
   isPassword2Valid = false;
   passwordsMatch = false;
 
+  @Output()
+  userDataUpdated = new EventEmitter();
+
   constructor(private dataService: DataService,
               private router: Router,
               private formResetService: FormResetService) { }
@@ -44,15 +47,21 @@ export class UserEditComponent implements OnInit {
 
   onSubmit(): void {
     const navigateFn = (user: User): void => {
+      this.userDataUpdated.emit();
       this.router.navigate(['admin/users'], {queryParams: {id: user.id, action: 'view'}});
     };
 
+    const errorHandler = (error: any): void => {
+      this.message = 'Error while saving data. Please try again';
+    };
+
     if (this.formUser) {
+      this.message = 'Saving...';
       if (this.formUser?.id != null) {
-        this.dataService.updateUser(this.formUser).subscribe(navigateFn);
+        this.dataService.updateUser(this.formUser).subscribe(navigateFn, errorHandler);
       } else {
         if (this.password) {
-          this.dataService.addUser(this.formUser, this.password).subscribe(navigateFn);
+          this.dataService.addUser(this.formUser, this.password).subscribe(navigateFn, errorHandler);
         } else {
           console.error('failed to add user. Password is null');
         }

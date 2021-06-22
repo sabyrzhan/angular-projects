@@ -17,11 +17,6 @@ public class RestUsersController {
 
   @GetMapping
   public List<AngularUser> getUsers() {
-    try {
-      Thread.sleep(3_000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
     return userRepository.findAll().parallelStream().map(u -> new AngularUser(u)).collect(Collectors.toList());
   }
 
@@ -37,7 +32,7 @@ public class RestUsersController {
   }
 
   @PutMapping
-  public AngularUser updateUser(@RequestBody User user) {
+  public AngularUser updateUser(@RequestBody AngularUser user) {
     return userRepository.findById(user.getId()).map(existing -> {
       existing.setName(user.getName());
       userRepository.save(existing);
