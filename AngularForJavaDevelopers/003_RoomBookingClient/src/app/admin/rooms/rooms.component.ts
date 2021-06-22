@@ -13,6 +13,8 @@ export class RoomsComponent implements OnInit {
   rooms: Array<Room> = new Array<Room>();
   selectedRoom?: Room;
   action?: string;
+  loadingData = true;
+  statusMessage = 'Please wait. Loading data...';
 
   constructor(private dataService: DataService,
               private route: ActivatedRoute,
@@ -20,7 +22,16 @@ export class RoomsComponent implements OnInit {
               private formResetService: FormResetService) { }
 
   ngOnInit(): void {
-    this.dataService.getRooms().subscribe(rooms => this.rooms = rooms);
+    this.dataService.getRooms().subscribe(
+      rooms => {
+        this.rooms = rooms;
+        this.loadingData = false;
+      },
+      error => {
+        this.statusMessage = 'Error data while loading data. Please try again!';
+        console.error(error);
+      }
+    );
     this.route.queryParams.subscribe(param => {
       this.action = param.action;
       this.selectedRoom = undefined;
