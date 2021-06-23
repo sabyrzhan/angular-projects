@@ -22,7 +22,18 @@ export class Room {
     return result;
   }
 
-  private static layoutFromValue(layout: Layout): Layout | undefined {
+  static layoutValueToName(stringValue: string): Layout | undefined {
+    const entries = Object.entries(Layout);
+    for (const e of entries) {
+      if (e[1] === stringValue) {
+        return e[0] as Layout;
+      }
+    }
+
+    return undefined;
+  }
+
+  static layoutFromValue(layout: Layout): Layout | undefined {
     const entries = Object.entries(Layout);
     for (const e of entries) {
       if (e[0] === layout) {

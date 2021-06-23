@@ -35,7 +35,7 @@ export class UserDetailComponent implements OnInit {
   resetPassword(): void {
     if (this.user && this.user.id) {
       this.dataService.resetPassword(this.user.id).subscribe(v => {
-        console.log('Password reset');
+        console.log('Password reset successfully');
       });
     } else {
       console.error('User is null');

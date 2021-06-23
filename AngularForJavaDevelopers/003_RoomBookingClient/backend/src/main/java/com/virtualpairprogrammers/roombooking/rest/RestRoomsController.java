@@ -37,4 +37,9 @@ public class RestRoomsController {
       return roomRepository.save(existing);
     }).orElseThrow(() -> new IllegalArgumentException("Room with ID=" + room.getId() + " not found"));
   }
+
+  @DeleteMapping("/{id}")
+  public void deleteById(@PathVariable long id) {
+    roomRepository.deleteById(id);
+  }
 }

@@ -3,6 +3,7 @@
 <a class="btn btn-warning mb-3" (click)="addRoom()">add</a>
 <div class="row">
   <div class="col-6">
+    <div class="alert-info" style="padding: 10px" *ngIf="message">{{message}}</div>
     <table class="table">
       <thead>
       <tr>
@@ -24,7 +25,7 @@
     <div *ngIf="loadingData">{{statusMessage}}</div>
   </div>
   <div class="col-6">
-    <app-room-detail *ngIf="action === 'view'" [room]="selectedRoom"></app-room-detail>
-    <app-room-edit *ngIf="action === 'edit' || action === 'add'" [room]="selectedRoom"></app-room-edit>
+    <app-room-detail *ngIf="action === 'view'"></app-room-detail>
+    <app-room-edit *ngIf="action === 'edit' || action === 'add'"></app-room-edit>
   </div>
 </div>

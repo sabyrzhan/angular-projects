@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Room} from '../../../model/Room';
 import {Router} from '@angular/router';
 import {DataService} from '../../../data.service';
+import {RoomService} from '../../../room.service';
 
 @Component({
   selector: 'app-room-detail',
@@ -9,13 +10,18 @@ import {DataService} from '../../../data.service';
   styleUrls: ['./room-detail.component.css']
 })
 export class RoomDetailComponent implements OnInit {
-  @Input()
   room?: Room;
+  errorMessage?: string;
 
   constructor(private router: Router,
-              private dataService: DataService) { }
+              private dataService: DataService,
+              private roomService: RoomService) { }
 
   ngOnInit(): void {
+    this.roomService.roomLoadedEmitter.subscribe(room => {
+      this.errorMessage = undefined;
+      this.room = room;
+    });
   }
 
   editRoom(): void {
@@ -23,10 +29,16 @@ export class RoomDetailComponent implements OnInit {
   }
 
   deleteRoom(): void {
+    this.errorMessage = undefined;
     if (this.room && this.room.id) {
-      this.dataService.deleteRoom(this.room.id).subscribe(v => {
-        this.router.navigate(['admin/rooms']);
-      });
+      this.dataService.deleteRoom(this.room.id).subscribe(
+        v => {
+          this.roomService.roomUpdatedEmitter.emit('Room deleted successfully!');
+          this.router.navigate(['admin/rooms']);
+        },
+        error => {
+          this.errorMessage = 'Error while deleting room. Please try again!';
+        });
     } else {
       console.error('Room is null');
     }

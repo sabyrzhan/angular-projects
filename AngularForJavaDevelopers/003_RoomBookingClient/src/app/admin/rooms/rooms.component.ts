@@ -3,6 +3,7 @@ import {DataService} from '../../data.service';
 import {Room} from '../../model/Room';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormResetService} from '../../form-reset.service';
+import {RoomService} from '../../room.service';
 
 @Component({
   selector: 'app-rooms',
@@ -11,62 +12,64 @@ import {FormResetService} from '../../form-reset.service';
 })
 export class RoomsComponent implements OnInit {
   rooms: Array<Room> = new Array<Room>();
-  selectedRoom?: Room;
   action?: string;
   loadingData = true;
   statusMessage = 'Please wait. Loading data...';
+  message?: string;
   reloadAttempts = 0;
 
   constructor(private dataService: DataService,
               private route: ActivatedRoute,
               private router: Router,
-              private formResetService: FormResetService) { }
+              private formResetService: FormResetService,
+              private roomService: RoomService) { }
 
   ngOnInit(): void {
     this.loadRooms();
-  }
-
-  processUrlParams(): void {
-    this.route.queryParams.subscribe(param => {
-      this.action = param.action;
-      this.selectedRoom = undefined;
-      if (param.id) {
-        this.selectedRoom = this.rooms.find(r => r.id === +param.id);
-      }
-
-      if (this.action === 'add') {
-        this.selectedRoom = new Room();
-        this.formResetService.resetRoomFormEmitter.emit(this.selectedRoom);
-      }
+    this.roomService.roomUpdatedEmitter.subscribe(message => {
+      this.message = message;
     });
   }
 
   loadRooms(): void {
-    this.dataService.getRooms().subscribe(
-      rooms => {
-        this.reloadAttempts = 0;
-        this.rooms = rooms;
-        this.loadingData = false;
-        this.processUrlParams();
-      },
-      error => {
-        this.reloadAttempts++;
-        if (this.reloadAttempts < 10) {
-          this.statusMessage = 'Error data while loading data. Retrying...';
-          this.loadRooms();
-        } else {
-          this.statusMessage = 'Error data while loading data. Please contact support.';
+    this.route.queryParams.subscribe(param => {
+      this.action = param.action;
+      this.dataService.getRooms().subscribe(
+        rooms => {
+          this.reloadAttempts = 0;
+          this.rooms = rooms;
+          this.loadingData = false;
+
+          if (param.id) {
+            const room = this.rooms.find(r => r.id === +param.id);
+            this.roomService.roomLoadedEmitter.emit(room);
+          }
+
+          if (this.action === 'add') {
+            this.formResetService.resetRoomFormEmitter.emit(new Room());
+          }
+        },
+        error => {
+          this.reloadAttempts++;
+          if (this.reloadAttempts < 10) {
+            this.statusMessage = 'Error data while loading data. Retrying...';
+            this.loadRooms();
+          } else {
+            this.statusMessage = 'Error data while loading data. Please contact support.';
+          }
+          console.error(error);
         }
-        console.error(error);
-      }
-    );
+      );
+    });
   }
 
   selectRoom(id: number): void {
+    this.message = undefined;
     this.router.navigate(['admin/rooms'], {queryParams: {id, action: 'view'}});
   }
 
   addRoom(): void {
+    this.message = undefined;
     this.router.navigate(['admin/rooms'], {queryParams: {action: 'add'}});
   }
 }

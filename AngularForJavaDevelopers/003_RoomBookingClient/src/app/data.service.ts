@@ -71,15 +71,15 @@ export class DataService {
   }
 
   updateRoom(room: Room): Observable<Room> {
-    return of(room);
+    return this.httpClient.put<Room>(environment.restUrl + '/api/rooms', room).pipe(map(data => Room.mapHttpRoom(data)));
   }
 
   addRoom(newRoom: Room): Observable<Room> {
-    return of(newRoom);
+    return this.httpClient.post<Room>(environment.restUrl + '/api/rooms', newRoom).pipe(map(data => Room.mapHttpRoom(data)));
   }
 
   deleteRoom(id: number): Observable<any> {
-    return of(null);
+    return this.httpClient.delete(environment.restUrl + '/api/rooms/' + id);
   }
 
   deleteUser(id: number): Observable<any> {
