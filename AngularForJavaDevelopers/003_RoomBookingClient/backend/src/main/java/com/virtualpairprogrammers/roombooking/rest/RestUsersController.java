@@ -39,4 +39,18 @@ public class RestUsersController {
       return new AngularUser(existing);
     }).orElseThrow(() -> new IllegalArgumentException("User with ID=" + user.getId() + " not found"));
   }
+
+  @DeleteMapping("/{id}")
+  public void deleteUserById(@PathVariable long id) {
+    userRepository.deleteById(id);
+  }
+
+  @PostMapping("/{id}/resetPassword")
+  public void resetPassword(@PathVariable long id) {
+    userRepository.findById(id).map(existing -> {
+      existing.setPassword("secret");
+      userRepository.save(existing);
+      return existing;
+    }).orElseThrow(() -> new IllegalArgumentException("User with ID=" + id + " not found"));
+  }
 }

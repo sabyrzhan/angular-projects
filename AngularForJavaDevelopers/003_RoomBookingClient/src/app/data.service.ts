@@ -83,11 +83,11 @@ export class DataService {
   }
 
   deleteUser(id: number): Observable<any> {
-    return of(null);
+    return this.httpClient.delete(environment.restUrl + '/api/users/' + id);
   }
 
   resetPassword(id: number): Observable<any> {
-    return of(null);
+    return this.httpClient.post(environment.restUrl + '/api/users/' + id + '/resetPassword', {});
   }
 
   getUser(id: number): Observable<User> {

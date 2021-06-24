@@ -36,10 +36,10 @@ export class UsersComponent implements OnInit {
       error => {
         this.attemptsCount++;
         if (this.attemptsCount < 10) {
-          this.statusMessage = 'Error occured while loading. Retrying...';
+          this.statusMessage = 'Error occurred while loading. Retrying...';
           this.loadUsers();
         } else {
-          this.statusMessage = 'Error occured while loading. Please contact help center';
+          this.statusMessage = 'Error occurred while loading. Please contact help center';
         }
         console.error(error);
       }
