@@ -15,6 +15,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RoomEditComponent } from './admin/rooms/room-edit/room-edit.component';
 import { EditBookingComponent } from './calendar/edit-booking/edit-booking.component';
 import {HttpClientModule} from '@angular/common/http';
+import {PrefetchUsersService} from './prefetch-users.service';
+import {PrefetchRoomsService} from './prefetch-rooms.service';
 
 const routes: Routes = [
   {
@@ -24,10 +26,10 @@ const routes: Routes = [
     path: 'admin/rooms', component: RoomsComponent
   },
   {
-    path: 'editBooking', component: EditBookingComponent
+    path: 'editBooking', component: EditBookingComponent, resolve: {users: PrefetchUsersService, rooms: PrefetchRoomsService}
   },
   {
-    path: 'addBooking', component: EditBookingComponent
+    path: 'addBooking', component: EditBookingComponent, resolve: {users: PrefetchUsersService, rooms: PrefetchRoomsService}
   },
   {
     path: '', component: CalendarComponent

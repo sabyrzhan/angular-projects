@@ -1,5 +1,7 @@
 package com.virtualpairprogrammers.roombooking.model.entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers;
 import com.virtualpairprogrammers.roombooking.model.Layout;
 
 import javax.persistence.*;
@@ -22,8 +24,11 @@ public class Booking {
     private Layout layout;
 
     private String title;
+    @JsonDeserialize(using = DateDeserializers.SqlDateDeserializer.class)
     private Date date;
+    @JsonDeserialize(using = SqlTimeDeserializer.class)
     private Time startTime;
+    @JsonDeserialize(using = SqlTimeDeserializer.class)
     private Time endTime;
     private Integer participants;
 

@@ -49,15 +49,33 @@ export class DataService {
   }
 
   getBooking(id: number): Observable<Booking | undefined> {
-    return of(undefined);
+    return this.httpClient.get<Booking>(environment.restUrl + '/api/bookings/' + id).pipe(map(data => Booking.mapHttpBooking(data)));
   }
 
   saveBooking(booking: Booking): Observable<Booking | undefined> {
-    return of(undefined);
+    if (booking.layout) {
+      booking.layout = Room.layoutValueToName(booking.layout as string);
+    }
+
+    if (booking.room) {
+      for (const cap of booking.room.capacities) {
+        cap.layout = Room.layoutValueToName(cap.layout as string);
+      }
+    }
+    return this.httpClient.put<Booking>(environment.restUrl + '/api/bookings', booking);
   }
 
   addBooking(booking: Booking): Observable<Booking> {
-    return of(booking);
+    if (booking.layout) {
+      booking.layout = Room.layoutValueToName(booking.layout as string);
+    }
+
+    if (booking.room) {
+      for (const cap of booking.room.capacities) {
+        cap.layout = Room.layoutValueToName(cap.layout as string);
+      }
+    }
+    return this.httpClient.post<Booking>(environment.restUrl + '/api/bookings', booking);
   }
 
   deleteBooking(id: number): Observable<any> {
