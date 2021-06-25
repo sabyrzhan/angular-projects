@@ -17,25 +17,42 @@ import { EditBookingComponent } from './calendar/edit-booking/edit-booking.compo
 import {HttpClientModule} from '@angular/common/http';
 import {PrefetchUsersService} from './prefetch-users.service';
 import {PrefetchRoomsService} from './prefetch-rooms.service';
+import { LoginComponent } from './login/login.component';
+import {AuthRouteGuardService} from './auth-route-guard.service';
 
 const routes: Routes = [
   {
-    path: 'admin/users', component: UsersComponent
+    path: 'admin/users', component: UsersComponent, canActivate: [AuthRouteGuardService]
   },
   {
-    path: 'admin/rooms', component: RoomsComponent
+    path: 'admin/rooms', component: RoomsComponent, canActivate: [AuthRouteGuardService]
   },
   {
-    path: 'editBooking', component: EditBookingComponent, resolve: {users: PrefetchUsersService, rooms: PrefetchRoomsService}
+    path: 'editBooking',
+    component: EditBookingComponent,
+    resolve: {
+      users: PrefetchUsersService,
+      rooms: PrefetchRoomsService
+    },
+    canActivate: [AuthRouteGuardService]
   },
   {
-    path: 'addBooking', component: EditBookingComponent, resolve: {users: PrefetchUsersService, rooms: PrefetchRoomsService}
+    path: 'addBooking',
+    component: EditBookingComponent,
+    resolve: {
+      users: PrefetchUsersService,
+      rooms: PrefetchRoomsService
+    },
+    canActivate: [AuthRouteGuardService]
   },
   {
     path: '', component: CalendarComponent
   },
   {
     path: '404', component: PageNotFoundComponent
+  },
+  {
+    path: 'login', component: LoginComponent
   },
   {
     path: '**', redirectTo: '/404'
@@ -54,7 +71,8 @@ const routes: Routes = [
     UserDetailComponent,
     UserEditComponent,
     RoomEditComponent,
-    EditBookingComponent
+    EditBookingComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
