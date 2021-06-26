@@ -3,7 +3,7 @@ import {Room} from './model/Room';
 import {User} from './model/User';
 import {Observable, of} from 'rxjs';
 import {Booking} from './model/Booking';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../environments/environment';
 import {map} from 'rxjs/operators';
 
@@ -118,5 +118,13 @@ export class DataService {
     return this.httpClient.get<User>(environment.restUrl + '/api/users/' + id).pipe(
       map(data => User.mapHttpUser(data))
     );
+  }
+
+  validateUser(username: string, password: string): Observable<string> {
+    const authData = btoa(`${username}:${password}`);
+    const headers = new HttpHeaders()
+      .append('Authorization', 'Basic ' + authData)
+      .append('Content-Type', 'application/json');
+    return this.httpClient.get<string>(environment.restUrl + '/api/basicAuth/validate', {headers});
   }
 }

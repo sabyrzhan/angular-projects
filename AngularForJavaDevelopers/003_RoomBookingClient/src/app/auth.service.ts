@@ -1,18 +1,25 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
+import {DataService} from './data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   isAuthenticated = false;
+  authenticationEventResult = new EventEmitter<boolean>();
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
-  authenticate(name: string, password: string): boolean {
-    if (name === 'test' && password === 'test') {
-      this.isAuthenticated = true;
-    }
-
-    return this.isAuthenticated;
+  authenticate(name: string, password: string) {
+    this.dataService.validateUser(name, password).subscribe(
+      v => {
+        this.isAuthenticated = true;
+        this.authenticationEventResult.emit(this.isAuthenticated);
+      },
+      error => {
+        this.isAuthenticated = false;
+        this.authenticationEventResult.emit(this.isAuthenticated);
+      }
+    );
   }
 }

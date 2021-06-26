@@ -131,6 +131,10 @@ export class DataService {
     return of(null);
   }
 
+  validateUser(username: string, password: string): Observable<string> {
+    return of('ok');
+  }
+
   private generateUsers(): void {
     for (let i = 1; i <= 10; i++) {
       const user = new User();

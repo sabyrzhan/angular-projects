@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   // using angular proxy to access backend
-  restUrl: 'http://localhost:4200'
+  restUrl: 'http://localhost:8080'
 };
 
 /*
