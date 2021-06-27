@@ -19,11 +19,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
+      .csrf().disable()
       .authorizeRequests()
       .antMatchers(HttpMethod.OPTIONS, "/api/basicAuth/**").permitAll()
       .antMatchers("/api/basicAuth/**")
-      .hasRole("ADMIN")
+      .hasAnyRole("USER", "ADMIN")
       .and()
       .httpBasic();
+
+    http
+      .csrf().disable()
+      .authorizeRequests()
+      .antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
+      .antMatchers(HttpMethod.GET, "/api/bookings/**").permitAll()
+      .antMatchers(HttpMethod.GET, "/api/**").hasAnyRole("USER", "ADMIN")
+      .antMatchers("/api/**").hasRole("ADMIN")
+      .and()
+      .addFilter(new JWTAuthorizationFilter(authenticationManager()));
   }
 }
