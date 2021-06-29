@@ -25,11 +25,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .antMatchers("/api/basicAuth/**")
       .hasAnyRole("USER", "ADMIN")
       .and()
-      .httpBasic();
-
-
-    http
-      .csrf().disable()
+      .httpBasic()
+      .and()
       .authorizeRequests()
       .antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
       .antMatchers(HttpMethod.GET, "/api/bookings/**").permitAll()
