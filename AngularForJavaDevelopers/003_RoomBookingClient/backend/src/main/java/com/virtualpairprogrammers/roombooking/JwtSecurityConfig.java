@@ -16,7 +16,8 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.GET, "/api/bookings/**").permitAll()
         .antMatchers(HttpMethod.GET, "/api/**").hasAnyRole("USER", "ADMIN")
         .antMatchers("/api/**").hasRole("ADMIN")
+        .antMatchers("/api/**").authenticated().and().httpBasic()
       .and()
-      .addFilter(new JWTAuthorizationFilter(authenticationManager()));
+        .addFilter(new JWTAuthorizationFilter(authenticationManager()));
   }
 }
