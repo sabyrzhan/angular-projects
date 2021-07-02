@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 @RestController
@@ -17,11 +19,15 @@ public class ValidateUserRestController {
   private JWTService jwtService;
 
   @GetMapping("/validate")
-  public Map<String, Object> isValid(Authentication authentication) {
+  public Map<String, Object> isValid(Authentication authentication, HttpServletResponse httpServletResponse) {
     User principal = (User) authentication.getPrincipal();
     String username = principal.getUsername();
     String role = principal.getAuthorities().toArray()[0].toString().substring(5);
     String token = jwtService.generateToken(username, role);
+
+    Cookie cookie = new Cookie("token", token);
+    httpServletResponse.addCookie(cookie);
+
     return Map.of("token", token);
   }
 }
