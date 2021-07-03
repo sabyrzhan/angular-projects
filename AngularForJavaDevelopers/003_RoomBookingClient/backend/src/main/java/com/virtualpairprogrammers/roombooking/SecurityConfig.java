@@ -30,6 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/api/basicAuth/**").authenticated().and().httpBasic()
       .and()
         .authorizeRequests()
-        .antMatchers("/api/basicAuth/**").hasAnyRole("USER", "ADMIN");
+        .antMatchers("/api/basicAuth/**").hasAnyRole("USER", "ADMIN")
+      .and()
+        .addFilter(new JWTAuthorizationFilter(authenticationManager()));
   }
 }

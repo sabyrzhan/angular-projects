@@ -15,7 +15,7 @@ export class DataService {
   }
 
   getRooms(): Observable<Array<Room>> {
-    return this.httpClient.get<Array<Room>>(environment.restUrl + '/api/rooms').pipe(
+    return this.httpClient.get<Array<Room>>(environment.restUrl + '/api/rooms', {withCredentials: true}).pipe(
       map((data: Array<Room>) => {
         const result = new Array<Room>();
         for (const d of data) {
@@ -125,6 +125,6 @@ export class DataService {
     const headers = new HttpHeaders()
       .append('Authorization', 'Basic ' + authData)
       .append('Content-Type', 'application/json');
-    return this.httpClient.get<{ token: string }>(environment.restUrl + '/api/basicAuth/validate', {headers});
+    return this.httpClient.get<{ token: string }>(environment.restUrl + '/api/basicAuth/validate', {headers, withCredentials: true});
   }
 }

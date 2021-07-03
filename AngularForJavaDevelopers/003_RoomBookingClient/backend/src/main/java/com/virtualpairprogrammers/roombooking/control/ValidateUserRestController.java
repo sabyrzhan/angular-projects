@@ -26,6 +26,7 @@ public class ValidateUserRestController {
     String token = jwtService.generateToken(username, role);
 
     Cookie cookie = new Cookie("token", token);
+    cookie.setPath("/api");
     httpServletResponse.addCookie(cookie);
 
     return Map.of("token", token);

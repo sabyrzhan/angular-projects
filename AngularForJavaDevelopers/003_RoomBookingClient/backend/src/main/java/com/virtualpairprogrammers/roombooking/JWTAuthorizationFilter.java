@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -14,10 +15,12 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -35,8 +38,17 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
   protected void doFilterInternal(HttpServletRequest request,
                                   HttpServletResponse response,
                                   FilterChain chain) throws IOException, ServletException {
-    String header = request.getHeader("Authorization");
-    if (header == null || !header.startsWith("Bearer")) {
+    Cookie[] cookies = request.getCookies();
+    if (cookies == null || cookies.length == 0) {
+      chain.doFilter(request, response);
+      return;
+    }
+
+    Cookie tokenCookie = Arrays.stream(cookies)
+                          .filter(cookie ->  "token".equals(cookie.getName()))
+                          .findFirst().orElse(null);
+
+    if (tokenCookie == null) {
       chain.doFilter(request, response);
       return;
     }
@@ -47,13 +59,12 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
       jwtService = appContext.getBean(JWTService.class);
     }
 
-    UsernamePasswordAuthenticationToken auth = getAuthentication(header);
+    UsernamePasswordAuthenticationToken auth = getAuthentication(tokenCookie.getValue());
     SecurityContextHolder.getContext().setAuthentication(auth);
     chain.doFilter(request, response);
   }
 
-  private UsernamePasswordAuthenticationToken getAuthentication(String header) {
-    String jwtToken = header.substring(7);
+  private UsernamePasswordAuthenticationToken getAuthentication(String jwtToken) {
     try {
       String payload = jwtService.validateToken(jwtToken);
       Map<String, Object> value = OBJECT_MAPPER.readValue(payload, Map.class);
@@ -61,7 +72,8 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
       String role = value.get("role").toString();
       List<GrantedAuthority> roles = new ArrayList<>();
       roles.add(() -> "ROLE_" + role);
-      UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user, null, roles);
+      User tokenUser = new User(user, "", roles);
+      UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(tokenUser, null, roles);
       return token;
     } catch (Exception e) {
       LOGGER.error("Error", e);
