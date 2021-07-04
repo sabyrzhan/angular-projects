@@ -3,6 +3,7 @@ import {Room} from '../../../model/Room';
 import {Router} from '@angular/router';
 import {DataService} from '../../../data.service';
 import {RoomService} from '../../../room.service';
+import {AuthService} from '../../../auth.service';
 
 @Component({
   selector: 'app-room-detail',
@@ -15,7 +16,8 @@ export class RoomDetailComponent implements OnInit {
 
   constructor(private router: Router,
               private dataService: DataService,
-              private roomService: RoomService) { }
+              private roomService: RoomService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     this.roomService.roomLoadedEmitter.subscribe(room => {
@@ -42,5 +44,9 @@ export class RoomDetailComponent implements OnInit {
     } else {
       console.error('Room is null');
     }
+  }
+
+  canEdit(): boolean {
+    return this.authService.canEdit();
   }
 }

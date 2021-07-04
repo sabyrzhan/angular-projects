@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {User} from '../../../model/User';
 import {Router} from '@angular/router';
 import {DataService} from '../../../data.service';
+import {AuthService} from '../../../auth.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -18,7 +19,8 @@ export class UserDetailComponent implements OnInit {
   statusMessage?: string;
 
   constructor(private router: Router,
-              private dataService: DataService) { }
+              private dataService: DataService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -58,5 +60,9 @@ export class UserDetailComponent implements OnInit {
     } else {
       console.error('User is null');
     }
+  }
+
+  canEdit(): boolean {
+    return this.authService.canEdit();
   }
 }

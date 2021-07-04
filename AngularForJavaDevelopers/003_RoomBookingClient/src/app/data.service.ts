@@ -27,7 +27,7 @@ export class DataService {
   }
 
   getUsers(): Observable<Array<User>> {
-    return this.httpClient.get<Array<User>>(environment.restUrl + '/api/users').pipe(
+    return this.httpClient.get<Array<User>>(environment.restUrl + '/api/users', {withCredentials: true}).pipe(
       map((data: Array<User>) => {
         const result = new Array<User>();
         for (const d of data) {
@@ -62,7 +62,7 @@ export class DataService {
         cap.layout = Room.layoutValueToName(cap.layout as string);
       }
     }
-    return this.httpClient.put<Booking>(environment.restUrl + '/api/bookings', booking);
+    return this.httpClient.put<Booking>(environment.restUrl + '/api/bookings', booking, {withCredentials: true});
   }
 
   addBooking(booking: Booking): Observable<Booking> {
@@ -75,15 +75,15 @@ export class DataService {
         cap.layout = Room.layoutValueToName(cap.layout as string);
       }
     }
-    return this.httpClient.post<Booking>(environment.restUrl + '/api/bookings', booking);
+    return this.httpClient.post<Booking>(environment.restUrl + '/api/bookings', booking, {withCredentials: true});
   }
 
   deleteBooking(id: number): Observable<any> {
-    return this.httpClient.delete(environment.restUrl + '/api/bookings/' + id);
+    return this.httpClient.delete(environment.restUrl + '/api/bookings/' + id, {withCredentials: true});
   }
 
   updateUser(user: User): Observable<User> {
-    return this.httpClient.put(environment.restUrl + '/api/users', user);
+    return this.httpClient.put(environment.restUrl + '/api/users', user, {withCredentials: true});
   }
 
   addUser(newUser: User, password: string): Observable<User> {
@@ -91,31 +91,35 @@ export class DataService {
       name: newUser.name,
       password
     };
-    return this.httpClient.post(environment.restUrl + '/api/users', request);
+    return this.httpClient.post(environment.restUrl + '/api/users', request, {withCredentials: true});
   }
 
   updateRoom(room: Room): Observable<Room> {
-    return this.httpClient.put<Room>(environment.restUrl + '/api/rooms', room).pipe(map(data => Room.mapHttpRoom(data)));
+    return this.httpClient
+      .put<Room>(environment.restUrl + '/api/rooms', room, {withCredentials: true})
+      .pipe(map(data => Room.mapHttpRoom(data)));
   }
 
   addRoom(newRoom: Room): Observable<Room> {
-    return this.httpClient.post<Room>(environment.restUrl + '/api/rooms', newRoom).pipe(map(data => Room.mapHttpRoom(data)));
+    return this.httpClient
+      .post<Room>(environment.restUrl + '/api/rooms', newRoom, {withCredentials: true})
+      .pipe(map(data => Room.mapHttpRoom(data)));
   }
 
   deleteRoom(id: number): Observable<any> {
-    return this.httpClient.delete(environment.restUrl + '/api/rooms/' + id);
+    return this.httpClient.delete(environment.restUrl + '/api/rooms/' + id, {withCredentials: true});
   }
 
   deleteUser(id: number): Observable<any> {
-    return this.httpClient.delete(environment.restUrl + '/api/users/' + id);
+    return this.httpClient.delete(environment.restUrl + '/api/users/' + id, {withCredentials: true});
   }
 
   resetPassword(id: number): Observable<any> {
-    return this.httpClient.post(environment.restUrl + '/api/users/' + id + '/resetPassword', {});
+    return this.httpClient.post(environment.restUrl + '/api/users/' + id + '/resetPassword', {}, {withCredentials: true});
   }
 
   getUser(id: number): Observable<User> {
-    return this.httpClient.get<User>(environment.restUrl + '/api/users/' + id).pipe(
+    return this.httpClient.get<User>(environment.restUrl + '/api/users/' + id, {withCredentials: true}).pipe(
       map(data => User.mapHttpUser(data))
     );
   }
@@ -125,6 +129,17 @@ export class DataService {
     const headers = new HttpHeaders()
       .append('Authorization', 'Basic ' + authData)
       .append('Content-Type', 'application/json');
-    return this.httpClient.get<{ token: string }>(environment.restUrl + '/api/basicAuth/validate', {headers, withCredentials: true});
+    return this.httpClient
+      .get<{ token: string }>(environment.restUrl + '/api/basicAuth/validate', {headers, withCredentials: true});
+  }
+
+  getRole(): Observable<{ role: string }> {
+    const headers = new HttpHeaders().append('X-Requested-With', 'XMLHttpRequest');
+    return this.httpClient
+      .get<{role: string}>(environment.restUrl + '/api/users/currentRole', {headers, withCredentials: true});
+  }
+
+  logout(): Observable<any> {
+    return this.httpClient.get(environment.restUrl + '/api/basicAuth/logout', {withCredentials: true});
   }
 }

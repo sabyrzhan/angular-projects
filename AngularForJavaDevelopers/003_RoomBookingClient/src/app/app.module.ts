@@ -19,6 +19,7 @@ import {PrefetchUsersService} from './prefetch-users.service';
 import {PrefetchRoomsService} from './prefetch-rooms.service';
 import { LoginComponent } from './login/login.component';
 import {AuthRouteGuardService} from './auth-route-guard.service';
+import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,9 @@ const routes: Routes = [
     path: 'login', component: LoginComponent
   },
   {
+    path: 'logout', component: LogoutComponent
+  },
+  {
     path: '**', redirectTo: '/404'
   }
 ];
@@ -72,7 +76,8 @@ const routes: Routes = [
     UserEditComponent,
     RoomEditComponent,
     EditBookingComponent,
-    LoginComponent
+    LoginComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

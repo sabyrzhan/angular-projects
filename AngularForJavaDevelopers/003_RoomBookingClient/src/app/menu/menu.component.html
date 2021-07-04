@@ -16,8 +16,10 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" [routerLink]="['admin/rooms']">Rooms</a>
           <a class="dropdown-item" [routerLink]="['admin/users']">Users</a>
-
         </div>
+      </li>
+      <li class="nav-item" *ngIf="isLoggedIn()">
+        <a class="nav-link" [routerLink]="['logout']">Logout</a>
       </li>
     </ul>
 

@@ -135,6 +135,10 @@ export class DataService {
     return of({token: 'token'});
   }
 
+  getRole(): Observable<{ role: string }> {
+    return of({role: 'ADMIN'});
+  }
+
   private generateUsers(): void {
     for (let i = 1; i <= 10; i++) {
       const user = new User();

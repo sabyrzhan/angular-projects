@@ -7,7 +7,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -72,8 +71,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
       String role = value.get("role").toString();
       List<GrantedAuthority> roles = new ArrayList<>();
       roles.add(() -> "ROLE_" + role);
-      User tokenUser = new User(user, "", roles);
-      UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(tokenUser, null, roles);
+      UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user, null, roles);
       return token;
     } catch (Exception e) {
       LOGGER.error("Error", e);

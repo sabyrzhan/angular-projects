@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl(this.route.snapshot.queryParams.redirectTo);
       }
     });
+    this.authService.checkIfAuthenticated();
   }
 
   ngOnDestroy(): void {

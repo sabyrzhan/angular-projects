@@ -4,9 +4,11 @@ import com.virtualpairprogrammers.roombooking.data.UserRepository;
 import com.virtualpairprogrammers.roombooking.model.AngularUser;
 import com.virtualpairprogrammers.roombooking.model.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -52,5 +54,12 @@ public class RestUsersController {
       userRepository.save(existing);
       return existing;
     }).orElseThrow(() -> new IllegalArgumentException("User with ID=" + id + " not found"));
+  }
+
+  @GetMapping("/currentRole")
+  public Map<String, String> getCurrentRole(Authentication authentication) {
+    return authentication.getAuthorities().stream().findFirst()
+      .map(g -> Map.of("role", g.getAuthority()))
+      .orElseThrow(() -> new RuntimeException("Role not found"));
   }
 }

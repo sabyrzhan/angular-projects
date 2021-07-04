@@ -26,12 +26,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .csrf().disable()
       .antMatcher("/api/basicAuth/**").httpBasic().disable()
       .authorizeRequests()
+        .antMatchers(HttpMethod.GET, "/api/basicAuth/logout").permitAll()
         .antMatchers(HttpMethod.OPTIONS, "/api/basicAuth/**").permitAll()
         .antMatchers("/api/basicAuth/**").authenticated().and().httpBasic()
       .and()
         .authorizeRequests()
-        .antMatchers("/api/basicAuth/**").hasAnyRole("USER", "ADMIN")
-      .and()
-        .addFilter(new JWTAuthorizationFilter(authenticationManager()));
+        .antMatchers("/api/basicAuth/**").hasAnyRole("USER", "ADMIN");
   }
 }
