@@ -7,6 +7,7 @@ import {DataService} from './data.service';
 export class AuthService {
   isAuthenticated = false;
   authenticationEventResult = new EventEmitter<boolean>();
+  logoutEventResult = new EventEmitter<boolean>();
   role?: string;
 
   constructor(private dataService: DataService) { }
@@ -28,14 +29,14 @@ export class AuthService {
   logout(): void {
     this.dataService.logout().subscribe(v => {
       this.isAuthenticated = false;
-      this.authenticationEventResult.emit(false);
+      this.role = undefined;
+      this.logoutEventResult.emit(true);
     });
   }
 
   setupRole(): void {
     this.dataService.getRole().subscribe(data => {
       this.role = data.role;
-      console.log('Role', this.role);
     });
   }
 

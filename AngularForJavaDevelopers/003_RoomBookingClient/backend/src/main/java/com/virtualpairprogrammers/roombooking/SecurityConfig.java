@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 @Configuration
 @EnableWebSecurity
@@ -23,9 +24,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
-      .csrf().disable()
-      .antMatcher("/api/basicAuth/**").httpBasic().disable()
-      .authorizeRequests()
+      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+      .and()
+        .csrf().disable()
+        .antMatcher("/api/basicAuth/**").httpBasic().disable()
+        .authorizeRequests()
         .antMatchers(HttpMethod.GET, "/api/basicAuth/logout").permitAll()
         .antMatchers(HttpMethod.OPTIONS, "/api/basicAuth/**").permitAll()
         .antMatchers("/api/basicAuth/**").authenticated().and().httpBasic()

@@ -11,9 +11,10 @@ export class MenuComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.checkIfAuthenticated();
   }
 
   isLoggedIn(): boolean {
-    return this.authService.role !== undefined && this.authService.role !== '';
+    return this.authService.isAuthenticated;
   }
 }

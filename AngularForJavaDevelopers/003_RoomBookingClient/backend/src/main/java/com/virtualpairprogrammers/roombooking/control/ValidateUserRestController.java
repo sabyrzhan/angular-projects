@@ -4,6 +4,7 @@ import com.virtualpairprogrammers.roombooking.JWTService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,12 +44,12 @@ public class ValidateUserRestController {
 
   @GetMapping("/logout")
   public Map<String, String> logout(HttpServletResponse response) {
-    Cookie cookie = new Cookie("token", "");
+    Cookie cookie = new Cookie("token", null);
     cookie.setPath("/api");
-    cookie.setHttpOnly(true);
     cookie.setMaxAge(0);
+    cookie.setHttpOnly(true);
     response.addCookie(cookie);
 
-    return Map.of("status", "ok");
+    return Map.of("result", "ok");
   }
 }
